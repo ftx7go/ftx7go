@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Showcase</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Sans-Serif;
+            background-color: #1E1E1E;
+            color: white;
+            height: 1980px;
+            width:1080px
+            font-size:12px;
+        }
+
+        #wrapper {
+            display: flex;
+        }
+
+        /* Sidebar */
+        #nav {
+            width: 600px;
+            background: #262626;
+            color: white;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-left: 10px;
+            margin-top: 10px;
+            font-size:12px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul a {
+            display: block;
+            color: whitesmoke;
+            text-decoration: none;
+            padding: 10px 0;
+        }
+
+        /* Main Content */
+        #content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        /* Gallery Layout */
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0px;
+            
+        }
+
+        .photo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 190px; /* Ensures a fixed square size */
+        }
+
+        .photo-box {
+            width: 150px;
+            height: 150px;
+            background-color: #383933; /* Fills empty space with red */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-box img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain; /* Keeps original shape while fitting inside */
+        }
+
+        .photo-info {
+            background-color: #1E1E1E;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size:12px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            #wrapper {
+                flex-direction: column;
+            }
+
+            #nav {
+                width: 100%;
+                text-align: center;
+            }
+
+            .photo-item {
+                width: 48%; /* 2 per row */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .photo-item {
+                width: 100%; /* 1 per row */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <nav id="nav">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">project's</a></li>
+                <li><a href="#">contact me</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="content">
+            <p>Starred</p>
+            
+            <div id="gallery">
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/2af351a1d096b2f1b1b3ad1c49946851.jpg" alt="Photo 1">
+                    </div>
+                    <div class="photo-info">
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/images (5).jpeg" alt="Photo 2">
+                    </div>
+                    <div class="photo-info">
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/19cda64e3a4f5ba731b31a40d409ac35.jpg" alt="Photo 3">
+                    </div>
+                    <div class="photo-info">
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/68ff344b7c0ca9ad38af135bf5ff3dd6.jpg" alt="Photo 4">
+                    </div>
+                    <div class="photo-info">
+                      
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/images (1).png" alt="Photo 5">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                        <i><p>this project aim for you to enter the dragon episode of the requirements</p></i>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/abe8f04aaab1da4fb3b670762c6883ea.jpg" alt="Photo 6">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/Untitled104_20250321010908.png" alt="Photo 7">
+                    </div>
+                    <div class="photo-info">
+                    
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                 <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/19cda64e3a4f5ba731b31a40d409ac35.jpg" alt="Photo 3">
+                    </div>
+                    <div class="photo-info">
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/68ff344b7c0ca9ad38af135bf5ff3dd6.jpg" alt="Photo 4">
+                    </div>
+                    <div class="photo-info">
+                      
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/images (1).png" alt="Photo 5">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                        <i><p>this project aim for you to enter the dragon episode of the requirements</p></i>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/abe8f04aaab1da4fb3b670762c6883ea.jpg" alt="Photo 6">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/Untitled104_20250321010908.png" alt="Photo 7">
+                    </div>
+                    <div class="photo-info">
+                    
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                 <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/19cda64e3a4f5ba731b31a40d409ac35.jpg" alt="Photo 3">
+                    </div>
+                    <div class="photo-info">
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/68ff344b7c0ca9ad38af135bf5ff3dd6.jpg" alt="Photo 4">
+                    </div>
+                    <div class="photo-info">
+                      
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/images (1).png" alt="Photo 5">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                        <i><p>this project aim for you to enter the dragon episode of the requirements</p></i>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/abe8f04aaab1da4fb3b670762c6883ea.jpg" alt="Photo 6">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/Untitled104_20250321010908.png" alt="Photo 7">
+                    </div>
+                    <div class="photo-info">
+                    
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                 <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/19cda64e3a4f5ba731b31a40d409ac35.jpg" alt="Photo 3">
+                    </div>
+                    <div class="photo-info">
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/68ff344b7c0ca9ad38af135bf5ff3dd6.jpg" alt="Photo 4">
+                    </div>
+                    <div class="photo-info">
+                      
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/images (1).png" alt="Photo 5">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                        <i><p>this project aim for you to enter the dragon episode of the requirements</p></i>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/abe8f04aaab1da4fb3b670762c6883ea.jpg" alt="Photo 6">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/Untitled104_20250321010908.png" alt="Photo 7">
+                    </div>
+                    <div class="photo-info">
+                    
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                 <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/19cda64e3a4f5ba731b31a40d409ac35.jpg" alt="Photo 3">
+                    </div>
+                    <div class="photo-info">
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/68ff344b7c0ca9ad38af135bf5ff3dd6.jpg" alt="Photo 4">
+                    </div>
+                    <div class="photo-info">
+                      
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/images (1).png" alt="Photo 5">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                        <i><p>this project aim for you to enter the dragon episode of the requirements</p></i>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/abe8f04aaab1da4fb3b670762c6883ea.jpg" alt="Photo 6">
+                    </div>
+                    <div class="photo-info">
+                        
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item">
+                    <div class="photo-box">
+                        <img src="/images/Untitled104_20250321010908.png" alt="Photo 7">
+                    </div>
+                    <div class="photo-info">
+                    
+                        <p>Short description of the image.</p>
+                    </div>
+                </div>
+
+                <!-- Add more photo items as needed -->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
