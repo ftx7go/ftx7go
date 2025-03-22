@@ -1,43 +1,15 @@
 <div align="center">
-  <h1>Hi there 👋</h1>
+  <h1 style="background: linear-gradient(to right, #4f00bc, #005cb6); color: white; padding: 15px; border-radius: 10px;">Hi there 👋</h1>
   <p>
     This is the special repository that makes my profile page on GitHub unique! I'm excited about the world of technology and always eager to learn and contribute. Currently based in the vibrant city of Nagpur, India, I'm passionate about building innovative solutions and connecting with fellow developers.
   </p>
 </div>
 
----
+<div style="background: linear-gradient(to bottom, #f0f0f0, #e0e0e0); padding: 20px; margin-top: 20px; border-radius: 5px;">
+  <h3>🔭 Currently Working On:</h3>
+  <p>I'm currently immersed in developing a personal project focused on streamlining task management using Python and a web framework. It's been a fantastic learning experience in applying various development principles.</p>
 
-### 🔭 Currently Working On:
-
-I'm currently immersed in developing a personal project focused on streamlining task management using Python and a web framework. It's been a fantastic learning experience in applying various development principles.
-
-### 🌱 Currently Learning:
-
-I'm actively expanding my knowledge in cloud computing, specifically diving into the services offered by AWS. I'm also exploring advanced concepts in data structures and algorithms to strengthen my foundational skills.
-
-### 👯 Looking to Collaborate On:
-
-I'm open to collaborating on interesting open-source projects, particularly those related to web development, automation, and machine learning. If you have a project that aligns with my interests, feel free to reach out!
-
-### 🤔 Looking for Help With:
-
-I'm currently exploring best practices for CI/CD pipelines and would appreciate any insights or guidance on setting up efficient workflows for my personal projects.
-
-### 💬 Ask Me About:
-
-Feel free to ask me about my experiences with Python, JavaScript, web development frameworks (like Flask or Django), or anything related to the projects I'm currently working on or learning.
-
-### 📫 How to Reach Me:
-
-You can connect with me on [Your LinkedIn Profile](Your_LinkedIn_URL) or send me an email at [Your Email Address].
-
-### 😄 Pronouns:
-
-He/Him
-
-### ⚡ Fun Fact:
-
-I'm a big fan of solving puzzles and enjoy spending my free time playing strategy games!
+  </div>
 
 ---
 
