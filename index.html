@@ -5,142 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Showcase</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: black;
-            color: #25055C;
-            font-size: 14px;
-            display: flex;
-            overflow-x: hidden;
-        }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: mouse memories;
+font-weight: bold;
 
-        /* Sidebar */
-        #nav {
-            width: 200px;
-            background: black;
-            color: #25055C;
-            padding: 10px;
-            box-sizing: border-box;
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            overflow-y: auto;
-            
-            line-height: 3px;
-        }
+        background-color: #F5F4F0;
+        color: #25055C;
+        font-size: 14px;
+        display: flex;
+        overflow-x: hidden;
+    }
 
-        #nav h3 {
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
+    /* Sidebar */
+    #nav {
+        width: 200px;
+        background: #F5F4F0;
+        color: #25055C;
+        padding: 10px;
+        box-sizing: border-box;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        overflow-y: auto;
+        line-height: 3px;
+    }
 
-        #nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
+    #nav h3 {
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
 
-        #nav ul li {
-            margin-bottom: 10px;
-        }
+    #nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-        #nav ul a {
-            display: block;
-            color: #25055C;
-            text-decoration: none;
-            font-size: 25px;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
+    #nav ul li {
+        margin-bottom: 10px;
+    }
 
-        #nav ul a:hover {
-            background: #25055C;
-        }
+    #nav ul a {
+        display: block;
+        color: #25055C;
+        text-decoration: none;
+        font-size: 25px;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
 
-        /* Content Area */
-        #content {
-            flex-grow: 1;
-            padding: 10px;
-            margin-left: 220px; /* Space for fixed sidebar */
-            overflow-y: auto;
-        }
+    #nav ul a:hover {
+        background: #25055C;
+    }
 
-        h2 {
-            text-align: left;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
+    /* Content Area */
+    #content {
+        flex-grow: 1;
+        padding: 10px;
+        margin-left: 220px; /* Space for fixed sidebar */
+        overflow-y: auto;
+    }
 
-        /* Gallery Layout */
-        #gallery {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr); /* Always 6 columns */
-            grid-auto-rows: minmax(150px, auto); /* Dynamic row height */
-            gap: 5px;
-            grid-auto-flow: dense; /* Fills gaps automatically */
-            width: 100%;
-        }
+    h2 {
+        text-align: left;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
 
-        .photo-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+    /* Gallery Layout */
+    #gallery {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr); /* Always 6 columns */
+        grid-auto-rows: minmax(150px, auto); /* Dynamic row height */
+        gap: 30px;
+        grid-auto-flow: dense; /* Fills gaps automatically */
+        width: 100%;
+    }
 
-        .photo-box {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            padding: 5px;
-        }
+    .photo-item {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 
-        .photo-box img {
-            width: 100%;
-            height: auto;
-            object-fit: contain; /* Ensures images keep their original aspect ratio */
-        }
+    .photo-box {
+        width: 100%;
+        padding-bottom: 100%; /* Make it a square */
+        position: relative; /* Needed for absolute positioning of image */
+        overflow: hidden; /* Clip any overflowing image parts */
+        background-color: #E9E6DF;
+        
+        
+    }
 
-        .photo-info {
-            text-align: center;
-            padding: 5px;
-            width: 100%;
-            box-sizing: border-box;
-            color:#25055C;
-        }
+.photo-box img { position: absolute;top: 50%;left: 50%;
+transform: translate(-50%, -50%);width: 90%; height: 90%;
+object-fit: contain;align-items: flex-start; }
 
-        .photo-info p {
-            margin: 2px 0;
-        }
+    .photo-info {
+        text-align: center;
+        padding: 0px;
+        width: 100%;
+        box-sizing: border-box;
+        color: #25055C;
+        font-size: 12px;
+    }
 
-        .photo-info .name {
-            font-weight: bold;
-            color: #25055C;
-        }
+    .photo-info p {
+        margin: 2px 0;
+    }
 
-        .photo-info .date {
-            color: #25055C;
-        }
+    .photo-info .name {
+        font-weight: bold;
+        font-size:12px;
+        color: #25055C;
+    }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
+    .photo-info .date {
+        color: #25055C;
+        font-size: 8px;
+    }
 
-        ::-webkit-scrollbar-track {
-            background: #f0f0f0;
-        }
+</style>
 
-        ::-webkit-scrollbar-thumb {
-            background: gray;
-            border-radius: 10px;
-        }
-    </style>
+
 </head>
 <body>
 
@@ -155,22 +146,22 @@
 
     <!-- Main Content -->
     <div id="content">
-     <i>  <b><h1>STARED WORK</h1></b></i>
-        
+       <b><h2>⭐️ STARED WORK</h2></b>
+
         <div id="gallery">
             <div class="photo-item">
                 <div class="photo-box">
-                    <img src="images/frogmusican.jpg" alt="Project 1">
+                    <img src="/images/demo/14.jpg" alt="Project 1">
                 </div>
                 <div class="photo-info">
                     <p class="name">elbow support throughout the year</p>
                     <p class="date">Published: Jan 2024</p>
                 </div>
             </div>
-            
+
             <div class="photo-item">
                 <div class="photo-box">
-                    <img src="images/images (1).png" alt="Project 2">
+                    <img src="/images/demo/13.jpeg" alt="Project 2">
                 </div>
                 <div class="photo-info">
                     <p class="name">Link A device used to transport</p>
@@ -180,7 +171,17 @@
 
             <div class="photo-item">
                 <div class="photo-box">
-                    <img src="images/frog.jpg" alt="Project 3">
+                    <img src="/images/demo/2.jpg" alt="Project 3">
+                </div>
+                <div class="photo-info">
+                    <p class="name">Project Three</p>
+                    <p class="date">Published: Mar 2024</p>
+                </div>
+            </div>
+            
+               <div class="photo-item">
+                <div class="photo-box">
+                    <img src="/images/demo/2.jpg" alt="Project 3">
                 </div>
                 <div class="photo-info">
                     <p class="name">Project Three</p>
@@ -188,19 +189,86 @@
                 </div>
             </div>
 
+
+   <div class="photo-item">
+                <div class="photo-box">
+                    <img src="/images/demo/14.jpg" alt="Project 3">
+                </div>
+                <div class="photo-info">
+                    <p class="name">Project Three</p>
+                    <p class="date">Published: Mar 2024</p>
+                </div>
+            </div>
+
+
+   <div class="photo-item">
+                <div class="photo-box">
+                    <img src="/images/demo/7.jpg" alt="Project 3">
+                </div>
+                <div class="photo-info">
+                    <p class="name">Project Three</p>
+                    <p class="date">Published: Mar 2024</p>
+                </div>
+            </div>
+
+
+   <div class="photo-item">
+                <div class="photo-box">
+                    <img src="/images/demo/6.png" alt="Project 3">
+                </div>
+                <div class="photo-info">
+                    <p class="name">Project Three</p>
+                    <p class="date">Published: Mar 2024</p>
+                </div>
+            </div>
+
+
+   <div class="photo-item">
+                <div class="photo-box">
+                    <img src="/images/demo/3.jpg" alt="Project 3">
+                </div>
+                <div class="photo-info">
+                    <p class="name">Project Three</p>
+                    <p class="date">Published: Mar 2024</p>
+                </div>
+            </div>
+
+
+   <div class="photo-item">
+                <div class="photo-box">
+                    <img src="/images/demo/13.jpeg" alt="Project 3">
+                </div>
+                <div class="photo-info">
+                    <p class="name">Project Three</p>
+                    <p class="date">Published: Mar 2024</p>
+                </div>
+            </div>
+
+
+   <div class="photo-item">
+                <div class="photo-box">
+                    <img src="/images/demo/10.jpg" alt="Project 3">
+                </div>
+                <div class="photo-info">
+                    <p class="name">Project Three</p>
+                    <p class="date">Published: Mar 2024</p>
+                </div>
+            </div>
+
+
             <div class="photo-item">
                 <div class="photo-box">
-                    <img src="images/dog.jpg" alt="Project 4">
+                    <img src="/images/demo/13.jpeg" alt="Project 4">
                 </div>
                 <div class="photo-info">
                     <p class="name">elbow support throughout the year ahead and take care tips
                     <p class="date">Published: Apr 2024</p>
                 </div>
             </div>
-            
+
             <div class="photo-item">
                 <div class="photo-box">
-                    <img src="images/frogmusican.jpg" alt="Project 5">
+                    <img src="/images/demo/2.jpg" alt="Project 5">
                 </div>
                 <div class="photo-info">
                     <p class="name">bone fracture detection using deep learning model involves multiple techniques</p>
@@ -210,7 +278,7 @@
 
             <div class="photo-item">
                 <div class="photo-box">
-                    <img src="images/frog.jpg" alt="Project 6">
+                    <img src="/images/demo/14.jpg" alt="Project 6">
                 </div>
                 <div class="photo-info">
                     <p class="name">centering you can go immediately
