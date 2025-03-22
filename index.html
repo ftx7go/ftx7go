@@ -1,294 +1,558 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Showcase</title>
-    <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: mouse memories;
-font-weight: bold;
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>3 Column, Right Menus</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+		<style type="text/css">
+		
+			body{
+				margin:0;
+				padding:0;
+				font-family: Sans-Serif;
+				line-height: 1.3em;
+				/*background-image: url('/working on/fs/images/page background/frog background.png');
+				background-repeat: repeat; This is the key line */
+				background-color: black;
+			}
+			
+			#header {
+				background: #BCCE98;
+				height: 200px;
+				margin-left: 5px;
+				margin-top: 5px;
+				margin-right:5px;
+			}
+			
+			#header h1 {
+				margin: 0;
+				padding-top: 15px;
+			}
+			
+			#mainwrapper {
+				overflow: hidden;
+			}
+			
+			#contentwrapper{
+				float: left;
+				width: 100%;
+			}
+			
+			#content {
+				margin-right: 465px; /* Width of '#rightmenu' and '#leftmenu' combined. */
+				margin-left:5px;
+				padding-bottom: 10010px;
+				margin-bottom: -10000px;
+				margin-top: -10px;
+				background-color: #AAEEBB;
+			}
+			
+			#leftmenu {
+				float: left;
+				width: 245px;
+				margin-left: -460px; /* Width of '#rightmenu' and '#leftmenu' combined. */
+				padding-bottom: 10010px;
+				margin-bottom: -10000px;
+				background: #C2FC20;
+				margin-top: 5px;
+			}
+			
+			#rightmenu {
+				float: left;
+				width: 205px;
+				margin-left: -210px;
+				padding-bottom: 10010px;
+				margin-bottom: -10000px;
+				background: #6AEE28;
+				margin-top:5px;
+			}
+			
+			#footer{
+				clear: left;
+				background: #BCCE98;
+				padding: 5px 0;
+				margin-top: 5px;
+				margin-right:5px;
+				margin-left:5px;
+				
+			}
+			
+			.innertube{
+				margin: 15px; /* Padding for content */
+				margin-top: 0;
+			}
+		
+		
+			p {
+				color: #555;
+			}
+	
+			nav ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			nav ul a {
+				color: black;
+				text-decoration: none;
+			}
+			
+			  .code-container { position: relative; display: inline-block; width: 100%; max-width: 700px; }
+        pre { background-color: #EEFFCC; padding: 10px; border-radius: 5px; border: 1px solid black; white-space: pre; word-wrap: break-word; font-size: 10px; overflow-x: auto;font-family:sans-serif;line-height: 1.3; }
+        .copy-code-button {
+    position: absolute; 
+    top: 13px; 
+    right: 4px; 
+    background: lawngreen; 
+    color: #333; 
+    border: 1px solid black; 
+    padding: 5px 10px; 
+    font-size: 12px; 
+    cursor: pointer; 
+    border-radius: 3px; 
+    display: none; 
+}
 
-        background-color: #F5F4F0;
-        color: #25055C;
-        font-size: 14px;
-        display: flex;
-        overflow-x: hidden;
-    }
+.code-container:hover .copy-code-button { 
+    display: block; 
+}
 
-    /* Sidebar */
-    #nav {
-        width: 200px;
-        background: #F5F4F0;
-        color: #25055C;
-        padding: 10px;
-        box-sizing: border-box;
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        overflow-y: auto;
-        line-height: 3px;
-    }
+.copy-code-button:active { 
+    background: #ddd; 
+}
 
-    #nav h3 {
-        margin-bottom: 15px;
-        font-size: 16px;
-    }
+.copy-code-button::after {
+    content: ""; /* Default English text */
+}
 
-    #nav ul {
-        list-style-type: none;
-        padding: 0;
-    }
 
-    #nav ul li {
-        margin-bottom: 10px;
-    }
 
-    #nav ul a {
-        display: block;
-        color: #25055C;
-        text-decoration: none;
-        font-size: 25px;
-        padding: 10px;
-        border-radius: 5px;
-        transition: background 0.3s;
-    }
 
-    #nav ul a:hover {
-        background: #25055C;
-    }
 
-    /* Content Area */
-    #content {
-        flex-grow: 1;
-        padding: 10px;
-        margin-left: 220px; /* Space for fixed sidebar */
-        overflow-y: auto;
-    }
+ .nav-item {
+            position: relative;
+            margin-bottom: 0px;
+            transition: margin-bottom 0.3s ease-in-out; /* Smooth animation */
+        }
 
-    h2 {
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 20px;
-    }
+        .nav-item img {
+            width: 90%;
+            max-width: 736px;
+            height: auto;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+            margin-bottom:0px;
+        }
 
-    /* Gallery Layout */
-    #gallery {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr); /* Always 6 columns */
-        grid-auto-rows: minmax(150px, auto); /* Dynamic row height */
-        gap: 30px;
-        grid-auto-flow: dense; /* Fills gaps automatically */
-        width: 100%;
-    }
+        .dropdown {
+            width: 90%;
+            max-width: 736px;
+            border: 3px solid black;
+            background-color: whitesmoke;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            padding: 5px 0;
+            overflow: hidden;
+            z-index: 10;
+            margin-top: 3px;
+            margin-bottom:3px;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
 
-    .photo-item {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
+        .dropdown ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-    .photo-box {
-        width: 100%;
-        padding-bottom: 100%; /* Make it a square */
-        position: relative; /* Needed for absolute positioning of image */
-        overflow: hidden; /* Clip any overflowing image parts */
-        background-color: #E9E6DF;
+        .dropdown ul li {
+            padding: 8px;
+        }
+
+        .dropdown ul li a {
+            text-decoration: none;
+            color: black;
+            display: block;
+        }
         
         
-    }
+        
+        
+        
+                /* Remove blue flash on images */
+img {
+    -webkit-tap-highlight-color: transparent; /* For mobile browsers */
+    outline: none;
+    user-select: none;
+}
 
-.photo-box img { position: absolute;top: 50%;left: 50%;
-transform: translate(-50%, -50%);width: 90%; height: 90%;
-object-fit: contain;align-items: flex-start; }
+/* Remove blue flash on links */
+a {
+    text-decoration: none;
+    color: black;
+    outline: none;
+}
 
-    .photo-info {
-        text-align: center;
-        padding: 0px;
-        width: 100%;
-        box-sizing: border-box;
-        color: #25055C;
-        font-size: 12px;
-    }
+a:focus, a:active {
+    outline: none;
+    background: none;
+}
+			
+		</style>
+		
+		
+	</head>
+	
+	<body>
+	  
+<header id="header"><img src="/working on/fs/images/header_banner/frogis.png" alt="Header Image" style="width: 100%; height: auto;"></header>
 
-    .photo-info p {
-        margin: 2px 0;
-    }
+		<div id="mainwrapper">
+			<div id="contentwrapper">
+				<div id="content">
+					<div class="innertube">
+					  
+<h1 style="font-size: 24px; line-height: 1.1; color: black;
+margin: 15px 0;padding-top:15px;">Comprehensive Guide Procedures and I Am the Founder of Workhap</h1>
+    
+<b><i><p>last updated on 20 march 2025</p></i></b>
+    
+<p>Add a sidebar. It's unique to each page and contains text that applies only to that page. Insert any text inside the sidebar. Think about where exactly this area will be located</p>
+    
+ <p>Add a section. Inside, <b><u> radiologist </u></b> create a section with a header wrapped in an tag. Inside the section, create two blocks with descriptions of new services. Don't forget <kbd>y+5</kbd>that inside the tag, there should be a header. <button>mark</button> + <button>next</button> Mark up the headers themselves in 
 
-    .photo-info .name {
-        font-weight: bold;
-        font-size:12px;
-        color: #25055C;
-    }
+<div class="code-container">
+    <button class="copy-code-button">copy</button>
+    <pre><code id="code-block">
+function myFunction(arg) 
+    { if (arg > 5) 
+    { return "Greater than 5";}
+    else {return "5 or less";}}
+  </code></pre>
+</div>
 
-    .photo-info .date {
-        color: #25055C;
-        font-size: 8px;
-    }
-
-</style>
-
-
-</head>
-<body>
-
-    <!-- Sidebar -->
-    <nav id="nav">
-        <ul>
-          <b><u><li><a href="#">Home</a></li></u></b>
-           <b><u> <li><a href="#">Contact Me</a></li></u></b>
-           <b><u><li><a href="#">Projects</a></li></u></b>
-        </ul>
-    </nav>
-
-    <!-- Main Content -->
-    <div id="content">
-       <b><h2>⭐️ STARED WORK</h2></b>
-
-        <div id="gallery">
-            <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/1198a746b334e674c00e13cf529d04a1.jpg" alt="Project 1">
-                </div>
-                <div class="photo-info">
-                    <p class="name">elbow support throughout the year</p>
-                    <p class="date">Published: Jan 2024</p>
-                </div>
-            </div>
-
-            <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/2ec27510cd121cee6a35ef0a1e37c60c.jpg" alt="Project 2">
-                </div>
-                <div class="photo-info">
-                    <p class="name">Link A device used to transport</p>
-                    <p class="date">Published: Feb 2024</p>
-                </div>
-            </div>
-
-            <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/frogmusican.jpg" alt="Project 3">
-                </div>
-                <div class="photo-info">
-                    <p class="name">Project Three</p>
-                    <p class="date">Published: Mar 2024</p>
-                </div>
-            </div>
-            
-               <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/frog.jpg" alt="Project 3">
-                </div>
-                <div class="photo-info">
-                    <p class="name">Project Three</p>
-                    <p class="date">Published: Mar 2024</p>
-                </div>
-            </div>
+    with the tag.</p>
+    
+    <p>Do you want to get notified when a new component is added to Flowbite? Sign up for our newsletter and you'll be among the first to find out about new features, components, versions, and tools.</p>
+    
+    <p>Sorry, I didn't test your solution thoroughly, but I see from the code that it's a bit… messy accessibility-wise, sorry for the word. first, headings inside lists seems not to be a good practice; then, your menu items repeat twice. Would a screen reader repeat them twice also? Sorry again, I can't tell anything more without real testing.</p>
+    
 
 
-   <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/dog.jpg" alt="Project 3">
-                </div>
-                <div class="photo-info">
-                    <p class="name">Project Three</p>
-                    <p class="date">Published: Mar 2024</p>
-                </div>
-            </div>
+
+<div class="code-container">
+    <button class="copy-code-button">copy</button>
+    <pre><code id="code-block">
+WINDOWS REGISTRY EDITOR VERSION 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\APPCOMPATFLAGS\LAYERS]
+"C:\\EGAMES\\MINI CAR RACING\\GAME\\EGAMES.EXE"="$ DWM8AND16BITMITIGATION 8AND16BITAGGREGATEBLTS LAYER_FORCEDIRECTDRAWEMULATION HIGHDPIAWARE DXPRIMARYEMULATION"
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=1.0\textwidth]{}
+    \end{figure}
+   
+    </code></pre>
+</div>
+
+<div class="code-container">
+    <button class="copy-code-button">copy</button>
+    <pre><code id="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Exemplo de Código&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: sans-serif; }
+        .container { display: flex; justify-content: center; gap: 10px; }
+        img { width: 35%; max-width: 736px; height: auto; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class="container"&gt;
+    &lt;img src="/images/home.png" alt="Home"&gt;
+    &lt;img src="/images/starred.png" alt="Starred"&gt;
+    &lt;img src="/images/restart.png" alt="Restart"&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("JavaScript carregado!");
+    });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+    </code></pre>
+</div>
 
 
-   <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/ae62c1ca9d3b17cd505ababb140e504d.jpg" alt="Project 3">
-                </div>
-                <div class="photo-info">
-                    <p class="name">Project Three</p>
-                    <p class="date">Published: Mar 2024</p>
-                </div>
-            </div>
+
+<script>
+    document.querySelectorAll(".copy-code-button").forEach(button => {
+        button.addEventListener("click", function () {
+            const code = this.nextElementSibling.textContent; // Keeps indentation
+            navigator.clipboard.writeText(code).then(() => {
+                this.setAttribute("data-text", this.textContent); // Store original text
+                this.textContent = "Copied"; // Change text to English "Copied"
+                setTimeout(() => { this.textContent = "Copy"; }, 2000); // Reset to "Copy"
+            }).catch(err => {
+                console.error("Error copying:", err);
+                this.textContent = "Error";
+                setTimeout(() => { this.textContent = "Copy"; }, 2000);
+            });
+        });
+    });
+</script>
 
 
-   <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/9287e21deb33d0d219c43bdfbf959bf4.jpg" alt="Project 3">
-                </div>
-                <div class="photo-info">
-                    <p class="name">Project Three</p>
-                    <p class="date">Published: Mar 2024</p>
-                </div>
-            </div>
 
 
-   <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/2ec27510cd121cee6a35ef0a1e37c60c.jpg" alt="Project 3">
-                </div>
-                <div class="photo-info">
-                    <p class="name">Project Three</p>
-                    <p class="date">Published: Mar 2024</p>
-                </div>
-            </div>
 
 
-   <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/1198a746b334e674c00e13cf529d04a1.jpg" alt="Project 3">
-                </div>
-                <div class="photo-info">
-                    <p class="name">Project Three</p>
-                    <p class="date">Published: Mar 2024</p>
-                </div>
-            </div>
+<p>
+  Salamanders are a group of amphibians with a lizard-like appearance, including
+  short legs and a tail in both larval and adult forms.
+</p>
+
+<p>
+  Several species of salamander inhabit the temperate rainforest of the Pacific
+  Northwest, including the Ensatina, the Northwestern Salamander and the
+  Rough-skinned Newt. Most salamanders are nocturnal, and hunt for insects,
+  worms and other small creatures.
+</p>
+
+    
+    <p>Next, add the following CSS codes to your style.css file to make your sidebar functional and visually appealing. Feel free to experiment with different CSS properties, such as colors, fonts, backgrounds, etc., to make your sidebar even more attractive.</p>
+						</div>
+				</div>
 
 
-   <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/8b8d68a2fbfd23930de9dbc9da6fb0c2.jpg" alt="Project 3">
-                </div>
-                <div class="photo-info">
-                    <p class="name">Project Three</p>
-                    <p class="date">Published: Mar 2024</p>
-                </div>
-            </div>
+			</div>
+			
+			<nav id="leftmenu">
+				<div class="innertube">
+				</div>
+				
+				
+    <img src="/images/cooltext478453567419942.png" alt="Header Image" 
+         style="width: 70%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
 
 
-            <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/366586b3ea5dd56f8fc6300a3afc554a.jpg" alt="Project 4">
-                </div>
-                <div class="photo-info">
-                    <p class="name">elbow support throughout the year ahead and take care tips
-                    <p class="date">Published: Apr 2024</p>
-                </div>
-            </div>
 
-            <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/ae62c1ca9d3b17cd505ababb140e504d.jpg" alt="Project 5">
-                </div>
-                <div class="photo-info">
-                    <p class="name">bone fracture detection using deep learning model involves multiple techniques</p>
-                    <p class="date">Published: May 2024</p>
-                </div>
-            </div>
+    <img src="/working on/fs/images/github.png" alt="Header Image" 
+         style="width: 90%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
 
-            <div class="photo-item">
-                <div class="photo-box">
-                    <img src="images/ae62c1ca9d3b17cd505ababb140e504d.jpg" alt="Project 6">
-                </div>
-                <div class="photo-info">
-                    <p class="name">centering you can go immediately
-                    <p class="date">Published: Jun 2024</p>
-                </div>
-            </div>
+    <img src="/working on/fs/images/Kaggle.png" alt="Header Image" 
+         style="width: 80%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
 
-            <!-- Add more images as needed -->
+
+
+    <img src="/working on/fs/images/huggingface.co.png" alt="Header Image" 
+         style="width: 70%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
+				
+    <img src="/working on/fs/images/scholar.png" alt="Header Image" 
+         style="width: 100%; max-width: 200px; height: auto; display: block; margin: 0 auto;">
+         
+    <img src="/working on/fs/images/linkdean.png" alt="Header Image" 
+         style="width: 90%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
+			</nav>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<nav id="leftmenu">
+    <div class="nav-item">
+        <img src="/working on/fs/images/leetcode.png" alt="LeetCode" onclick="toggleDropdown(this)">
+        <div class="dropdown">
+            <ul>
+                <li><a href="#">LeetCode Profile</a></li>
+                <hr style="border: none; height: 2px; background-color:black; margin: 0px 0;">
+                <li><a href="#">LeetCode Problems</a></li>
+                 <hr style="border: none; height: 2px; background-color:black; margin: 0px 0;">
+                <li><a href="#">LeetCode Contests</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="nav-item">
+        <img src="/working on/fs/images/linkdean.png" alt="LeetCode" onclick="toggleDropdown(this)">
+        <div class="dropdown">
+            <ul>
+                <li><a href="#">blogs</a></li>
+                <hr style="border: none; height: 2px; background-color:black; margin: 0px 0;">
+                <li><a href="#">articles</a></li>
+                 <hr style="border: none; height: 2px; background-color:black; margin: 0px 0;">
+                <li><a href="#">comments</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="nav-item">
+        <img src="/working on/fs/images/scholar.png" alt="LeetCode" onclick="toggleDropdown(this)">
+        <div class="dropdown">
+            <ul>
+                <li><a href="#">LeetCode Profile</a></li>
+                <hr style="border: none; height: 2px; background-color:black; margin: 0px 0;">
+                <li><a href="#">LeetCode Problems</a></li>
+                 <hr style="border: none; height: 2px; background-color:black; margin: 0px 0;">
+                <li><a href="#">LeetCode Contests</a></li>
+            </ul>
         </div>
     </div>
 
-</body>
+    <div class="nav-item">
+        <img src="/working on/fs/images/github.png" alt="GitHub" onclick="toggleDropdown(this)">
+        <div class="dropdown">
+            <ul>
+                <li><a href="#">𝐚𝐫𝐭𝐢𝐜𝐥𝐞𝐬</a></li>
+                 <hr style="border: none; height: 3px; background-color: black; margin: 0px 0;">
+                <li><a href="#">𝐚𝐫𝐭𝐢𝐜𝐥𝐞𝐬</a></li>
+                 <hr style="border: none; height: 3px; background-color: black; margin: 0px 0;">
+                <li><a href="#">a͟r͟t͟i͟c͟l͟e͟s͟</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="nav-item">
+        <img src="/working on/fs/images/Kaggle.png" alt="Kaggle" onclick="toggleDropdown(this)">
+        <div class="dropdown">
+            <ul>
+                <li><a href="#">my datasets</a></li>
+                 <hr style="border: none; height: 3px; background-color: black; margin: 0px 0;">
+                <li><a href="#">my notebooks</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="nav-item">
+        <img src="/working on/fs/images/huggingface.co.png" alt="Hugging Face" onclick="toggleDropdown(this)">
+        <div class="dropdown">
+            <ul>
+                <li><a href="#">Hugging Face Profile</a></li>
+                 <hr style="border: none; height: 3px; background-color: black; margin: 0px 0;">
+                <li><a href="#">Hugging Face Models</a></li>
+                 <hr style="border: none; height: 3px; background-color: black; margin: 0px 0;">
+                <li><a href="#">Hugging Face Datasets</a></li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+
+			
+			
+			<script>
+			  
+			  let openDropdown = null;
+
+    function toggleDropdown(image) {
+        let parent = image.parentElement;
+        let dropdown = parent.querySelector(".dropdown");
+
+        // Close the previously opened dropdown
+        if (openDropdown && openDropdown !== dropdown) {
+            openDropdown.style.display = "none";
+            openDropdown.parentElement.style.marginBottom = "10px"; // Reset margin
+        }
+
+        // Toggle the clicked dropdown
+        if (dropdown.style.display === "block") {
+            dropdown.style.display = "none";
+            parent.style.marginBottom = "10px"; // Reset margin
+            openDropdown = null;
+        } else {
+            dropdown.style.display = "block";
+            parent.style.marginBottom = dropdown.offsetHeight + "-0px"; // Push next image down
+            openDropdown = dropdown;
+        }
+    }
+			  
+			</script>
+			
+			
+			
+			
+			<nav id="rightmenu">
+				<div class="innertube">
+					<h3>
+					<ul>
+         
+         
+         
+         <div style="display: flex; justify-content: center; gap: 10px;">
+    <a href="home.html">
+        <img src="/working on/fs/images/rightnav/home.png" alt="Home Image" 
+             style="width: 100%; max-width: 736px; height: auto;">
+    </a>
+    
+    <a href="stared.html">
+        <img src="/working on/fs/images/rightnav/stared.png" alt="Starred Image" 
+             style="width: 100%; max-width: 736px; height: auto;">
+    </a>
+    
+    <a href="restart.html">
+        <img src="/working on/fs/images/rightnav/restart.png" alt="Restart Image" 
+             style="width: 100%; max-width: 736px; height: auto;">
+    </a>
+</div>
+         
+         
+         
+						
+    <img src="/working on/fs/images/my projects.png" alt="Header Image" 
+         style="width: 100%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
+						
+						
+    <img src="/working on/fs/images/resume.png" alt="Header Image" 
+         style="width: 100%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
+
+    <img src="/working on/fs/images/my activity on other platforms.gif" alt="Header Image" 
+         style="width: 100%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
+						
+    <img src="/working on/fs/images/about_me.png" alt="Header Image" 
+         style="width: 100%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
+    
+     <img src="/working on/fs/images/contact_me.png" alt="Header Image" 
+         style="width: 100%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
+						
+    <img src="/working on/fs/images/i want help.png" alt="Header Image" 
+         style="width: 100%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
+         
+    <img src="/working on/fs/images/rightnav/helpfrog.png" alt="Header Image" 
+         style="width: 100%; max-width: 736px; height: auto; display: block; margin: 0 auto;">
+
+					</ul>
+					</h3>
+				</div>
+			</nav>
+		</div>
+			<footer id="footer">
+				<div class="innertube">
+				
+				</div>
+			</footer>
+	
+	</body>
+
 </html>
