@@ -13,15 +13,9 @@ Insights and recommendations are provided on the following key areas:
 * **Sales Performance Analysis:** Understanding daily and monthly sales trends for various products.
 * **Replenishment and Resend Optimization:** Identifying products needing to be ordered or transferred between the warehouse and stores.
 
-The SQL queries used to inspect and clean the data for this analysis can be found here [Link to SQL Queries - Placeholder].
-
-Targeted SQL queries regarding various business questions can be found here [Link to Targeted SQL Queries - Placeholder].
-
-An interactive Tableau dashboard used to report and explore sales trends can be found here [Link to Tableau Dashboard - Placeholder].
-
 ## Data Structure & Initial Checks
 
-Fresh Foods Supermarket's main database structure consists of four primary tables: `warehouse_inventory`, `store_inventory`, `sales_transactions`, and `transfer_logs`, with a total row count of approximately 1,500,000 records. A description of each table is as follows:
+Fresh Foods Supermarket's main database structure consists of four primary tables: `warehouse_inventory`, `store_inventory`, `sales_transactions`, and `transfer_logs`.A description of each table is as follows:
 
 * **Table: `warehouse_inventory`**
     * Columns: `product_id` (INT, Primary Key), `product_name` (VARCHAR), `quantity_in_warehouse` (INT), `arrival_date` (DATE), `supplier_id` (INT), `expiry_date` (DATE, nullable)
