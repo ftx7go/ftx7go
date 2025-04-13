@@ -128,7 +128,7 @@ nav ul a {color: darkgreen;text-decoration: none;}
 		</div>
 
         <script>
-            fetch('/main/sidebar.html')
+            fetch('sidebar.html')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('sidebar-container').innerHTML = data;
