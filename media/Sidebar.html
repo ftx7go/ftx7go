@@ -3,12 +3,56 @@
 
         <img src="media/sahil.png" alt="Sidebar Image" style="width: calc(100% - 5px); margin-left: 5px; margin-right: 5px;margin-top:15px; display: block;">
 
-
-<h1>Homepage <<<<<< </h1>
-<h1>Resume <<<<<<<< </h1>
-<h1>qr <<<<<<<<<<<< </h1>
-
-
+        <h1 id="homepage-arrows" class="blinking-text">Homepage &lt;&lt;&lt;&lt;&lt;&lt;</h1>
+        <h1 id="resume-arrows" class="blinking-text">Resume &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</h1>
+        <h1 id="qr-arrows" class="blinking-text">qr &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</h1>
 
     </div>
 </nav>
+
+<style>
+  .blinking-text {
+    display: inline-block;
+  }
+  .blinking-text span {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+  .blinking-text span.hidden {
+    opacity: 0;
+  }
+</style>
+
+<script>
+function blinkArrows(elementId) {
+  const arrowsElement = document.getElementById(elementId);
+  const originalText = arrowsElement.textContent;
+  const baseText = originalText.split('<')[0];
+  const arrows = originalText.substring(baseText.length).split('');
+  let currentIndex = arrows.length - 1;
+
+  setInterval(() => {
+    const spans = [];
+    for (let i = 0; i < arrows.length; i++) {
+      const span = document.createElement('span');
+      span.textContent = arrows[i];
+      if (i === currentIndex) {
+        span.classList.add('hidden');
+      }
+      spans.push(span);
+    }
+    arrowsElement.innerHTML = baseText + spans.map(span => span.outerHTML).join('');
+
+    currentIndex--;
+    if (currentIndex < 0) {
+      currentIndex = arrows.length - 1;
+    }
+  }, 500); // Adjust the blinking speed (milliseconds)
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  blinkArrows('homepage-arrows');
+  blinkArrows('resume-arrows');
+  blinkArrows('qr-arrows');
+});
+</script>
