@@ -1,265 +1,433 @@
----------------------------------------------------------------------------------
-K-Nearest Neighbors (KNN)
----------------------------------------------------------------------------------
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn import metrics
+-----------------------------------------------------
+data<-c(34,78,12,91,56,23,88,45,6,99,15,82,39,61,4,72,28,95,50,18,75,31,68,9,85,42,59,1,96,19,79,36,63,11,89,48,53,7,93,26,70,3,81,40,57,16,83,33,65,14,97,51,20,77,37,60,2,87,46,54,10,90,25,73,30,67,5,98,17,80,38,62,13,86,44,55,92,27,71,35,64,99,8,58,22,74,29,69,41,52,94,24,76,32,66,47,59)
+hist(data,xlab="age",col="green",main="padding for ")
+-----------------------------------------------------
+k <- c(10,23,34,21,66)
+m <- c("jan","feb","mar","april","may")
+barplot(k, names.arg=m ,horiz =FALSE ,xlab="month", ylab="no of sold phones", main="barchart plotting",col="green")
+-----------------------------------------------------
+# Hours Studied for Math
+Hours_Math = c(9,1,8,7,7,3,2,4,5,6)
 
-iris = load_iris()
-x = iris.data
-y = iris.target
+# Math Test Scores
+Score_Math = c(7,4,1,5,9,6,3,3,6,9)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Hours Studied for Science
+Hours_Science = c(4,1,5,9,7,4,5,2,8,4)
 
-k_range = range(1, 26)
-scores_list = []
-for k in k_range:
-  knn = KNeighborsClassifier(n_neighbors=k)
-  knn.fit(X_train, y_train)
-  y_pred = knn.predict(X_test)
-  scores_list.append(metrics.accuracy_score(y_test, y_pred))
+# Science Test Scores
+Score_Science = c(9,1,5,7,4,1,3,6,5,2)
 
-plt.plot(k_range, scores_list)
-plt.xlabel("K Value")
-plt.ylabel("Accuracy Score")
-plt.title("KNN Accuracy vs. K Value")
-plt.show()
----------------------------------------------------------------------------------
-Decision Tree Classifier
----------------------------------------------------------------------------------
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
-from sklearn import tree
+# Create a scatter plot for Math Scores vs. Study Hours
+plot(Hours_Math, Score_Math,
+     xlab = "Hours Studied",
+     ylab = "Test Score",
+     main = "Study Hours vs. Test Scores",
+     col='darkblue',
+     pch=7)
 
-iris = load_iris()
-x = iris.data
-y = iris.target
+# Add the scatter plot for Science Scores vs. Study Hours
+points(Hours_Science, Score_Science, col='red', pch=8 )
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+# Add a legend to distinguish between Math and Science
+legend ("topright", # Adjust position as needed
+        legend=c('Math', 'Science'),
+        pch=c(7, 8),
+        col=c('darkblue', 'red'))
+-----------------------------------------------------
+listi <- list(1:5, "hi", 051)
+list2 <- list(6:8)
+list_data <- list(listi, list2)
 
-clf = DecisionTreeClassifier()
-clf.fit(X_train, y_train)
+print ("The two-dimensional list is: ")
+print (list_data)
 
-y_pred = clf.predict(X_test)
+cat("Length of nested list is:", length(list_data), "\n")
+cat("Length of first inner list is: ", length(list_data[[1]]), "\n")
+-----------------------------------------------------
+# Load the dplyr package
+library(dplyr)
 
-accuracy = accuracy_score(y_test, y_pred)
-print("Model Accuracy:", accuracy)
+# Access the built-in 'mtcars' dataset
+data("mtcars")
 
-cm = confusion_matrix(y_test, y_pred)
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=iris.target_names)
-disp.plot(cmap=plt.cm.Blues)
-plt.title("Confusion Matrix")
-plt.show()
+# Display the first few rows of the dataset to understand its structure
+head(mtcars)
 
-plt.figure(figsize=(12, 8))
-tree.plot_tree(clf, filled=True, feature_names=iris.feature_names, class_names=iris.target_names)
-plt.title("Decision Tree Visualization")
-plt.show()
----------------------------------------------------------------------------------
-Support Vector Machine (SVM)
----------------------------------------------------------------------------------
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+# Aim (P2): Use dplyr Grammar for inbuilt data set car (mtcars)
+# The subsequent operations demonstrate the use of dplyr grammar on the mtcars dataset.
 
-data = pd.read_csv("/content/Social_Network_Ads.csv")
+# Aim (P3): Use select(), filter(), arrange(), rename(), mutate(), group_by(), %>%
 
-label_encoder = LabelEncoder()
-data['Gender'] = label_encoder.fit_transform(data['Gender'])
+# 1. select(): Select specific columns
+selected_columns <- mtcars %>%
+  select(mpg, cyl, hp)
+head(selected_columns)
 
-X = data.iloc[:, :-1].values
-y = data.iloc[:, -1].values
+# 2. filter(): Filter rows based on a condition
+filtered_rows <- mtcars %>%
+  filter(cyl == 6 & gear == 4)
+head(filtered_rows)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+# 3. arrange(): Arrange rows based on one or more columns
+arranged_rows <- mtcars %>%
+  arrange(wt, desc(mpg)) # Arrange by weight (ascending) and then by mpg (descending)
+head(arranged_rows)
 
-sc = StandardScaler()
-X_train = sc.fit_transform(X_train)
-X_test = sc.transform(X_test)
+# 4. rename(): Rename columns
+renamed_columns <- mtcars %>%
+  rename(Miles_per_Gallon = mpg,
+         Cylinders = cyl,
+         Gross_Horsepower = hp)
+head(renamed_columns)
 
-classifier = SVC(kernel='linear', random_state=0)
-classifier.fit(X_train, y_train)
+# 5. mutate(): Create new columns or modify existing ones
+mutated_data <- mtcars %>%
+  mutate(power_to_weight = hp / wt,
+         efficient = ifelse(mpg > 20, "High", "Low"))
+head(mutated_data)
 
-y_pred = classifier.predict(X_test)
+# 6. group_by(): Group rows based on one or more columns
+grouped_data <- mtcars %>%
+  group_by(cyl)
+summarise(grouped_data,
+          mean_mpg = mean(mpg),
+          max_hp = max(hp),
+          n_cars = n())
 
-accuracy = accuracy_score(y_test, y_pred)
-print("Model Accuracy:", accuracy)
+# 7. Using the pipe operator (%>%) to chain multiple operations
+# Example combining several dplyr verbs:
+complex_analysis <- mtcars %>%
+  filter(gear >= 4) %>%
+  group_by(cyl) %>%
+  summarise(average_horsepower = mean(hp),
+            median_weight = median(wt),
+            n_high_mpg = sum(mpg > 25)) %>%
+  arrange(desc(average_horsepower))
 
-cm = confusion_matrix(y_test, y_pred)
-disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-disp.plot(cmap=plt.cm.Blues)
-plt.title("Confusion Matrix")
-plt.show()
----------------------------------------------------------------------------------
-Linear Regression
----------------------------------------------------------------------------------
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score
+print("Complex Analysis:")
+print(complex_analysis)
+-----------------------------------------------------------
+# Load the ggplot2 library
+require(ggplot2) # For creating more advanced and customizable plots
 
-data = pd.read_csv("/content/salary_data.csv")
+# Load the built-in 'airquality' dataset into a data frame called 'aq'
+aq <- data.frame(airquality)
 
-X = data.iloc[:, :-1].values
-y = data.iloc[:, -1].values
+# Display the column names of the 'aq' data frame
+colnames(aq)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Display the first few rows of the 'aq' data frame
+head(aq)
 
-regressor = LinearRegression()
-regressor.fit(X_train, y_train)
+# Calculate the number of missing values (NA) in each column of 'aq'
+colSums(is.na(aq))
 
-y_pred = regressor.predict(X_test)
+# Convert the 'Day' column to a factor with ordered levels (1 to 31)
+aq$Day <- factor(aq$Day, levels=c(1:31), ordered=TRUE)
 
-r2 = r2_score(y_test, y_pred)
-print("Model R-squared Score:", r2)
+# Convert the 'Month' column to a factor with ordered levels (5 to 9)
+# and assign month abbreviations (May to September) as labels
+aq$Month <- factor(aq$Month, levels=5:9, labels=month.abb[5:9], ordered=TRUE)
 
-plt.scatter(X_train, y_train, color="magenta")
-plt.plot(X_train, regressor.predict(X_train), color="red")
-plt.xlabel("Years of Experience")
-plt.ylabel("Salary")
-plt.title("Linear Regression (Training Set)")
-plt.show()
----------------------------------------------------------------------------------
-Logistic Regression
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+# Display a statistical summary of the 'aq' data frame
+summary(aq)
 
-data = pd.read_csv("/content/Social_Network_Ads.csv")
+# Display a statistical summary of the 'Ozone' column
+summary(aq$Ozone)
 
-data['Gender'] = data['Gender'].map({'Male': 0, 'Female': 1})
+# Create a histogram of the 'Ozone' values using base R plotting
+ggplot(data=aq) + geom_histogram(mapping=aes(Ozone))
+# This line uses ggplot2 to create a histogram, which visualizes the distribution of Ozone levels.
 
-X = data.iloc[:, :-1].values
-y = data.iloc[:, -1].values
+# Calculate the skewness of the 'Ozone' column (ignoring missing values)
+# The moments library is excluded, so we won't calculate skewness directly here.
+# If you need skewness, you might consider other packages or manual calculation.
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+# Calculate the kurtosis of the 'Ozone' column (ignoring missing values)
+# The moments library is excluded, so we won't calculate kurtosis directly here.
+# If you need kurtosis, you might consider other packages or manual calculation.
 
-sc = StandardScaler()
-X_train = sc.fit_transform(X_train)
-X_test = sc.transform(X_test)
+# Create a new column 'Ozone.sqrt' by taking the square root of the 'Ozone' values
+aq$Ozone.sqrt <- sqrt(aq$Ozone)
+# This transformation can sometimes help to normalize skewed data.
 
-classifier = LogisticRegression(random_state=0)
-classifier.fit(X_train, y_train)
+# Create a histogram of the transformed 'Ozone.sqrt' values using ggplot2
+ggplot(data=aq) + geom_histogram(mapping=aes(Ozone.sqrt))
 
-y_pred = classifier.predict(X_test)
+# Calculate the skewness of the transformed 'Ozone.sqrt' column (ignoring missing values)
+# The moments library is excluded.
 
-accuracy = accuracy_score(y_test, y_pred)
-print("Model Accuracy:", accuracy)
+# Calculate the kurtosis of the transformed 'Ozone.sqrt' column (ignoring missing values)
+# The moments library is excluded.
 
-cm = confusion_matrix(y_test, y_pred)
-disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-disp.plot(cmap=plt.cm.Blues)
-plt.title("Confusion Matrix")
-plt.show()
----------------------------------------------------------------------------------
-Hierarchical Clustering
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import scipy.cluster.hierarchy as sch
-from sklearn.cluster import AgglomerativeClustering
+# Create a boxplot of 'Ozone' levels for each 'Month' using base R plotting
+qplot(Month, Ozone, data=aq, geom="boxplot", color=Month)
+# Boxplots show the distribution of a variable across different categories.
 
-data = pd.read_csv("Mall_Customers.csv")
+# Display a statistical summary of the 'Solar.R' column
+summary(aq$Solar.R)
 
-X = data.iloc[:, [3, 4]].values  # Selecting Annual Income and Spending Score
+# Create a histogram of the 'Solar.R' values using ggplot2
+ggplot(data=aq) + geom_histogram(mapping=aes(Solar.R))
 
-plt.figure(figsize=(10, 5))
-dendrogram = sch.dendrogram(sch.linkage(X, method="ward"))
-plt.title("Dendrogram")
-plt.xlabel("Customers")
-plt.ylabel("Euclidean Distance")
-plt.show()
+# Create a boxplot of 'Solar.R' levels for each 'Month' using base R plotting
+qplot(Month, Solar.R, data=aq, geom="boxplot", color=Month)
 
-from sklearn.cluster import AgglomerativeClustering
-hc = AgglomerativeClustering(n_clusters=5, metric="euclidean", linkage="ward")
-y_hc = hc.fit_predict(X)
+# Display a statistical summary of the 'Wind' column
+summary(aq$Wind)
 
-plt.figure(figsize=(10, 5))
-for i in range(5):
-  plt.scatter(X[y_hc == i, 0], X[y_hc == i, 1], label=f"Cluster {i+1}")
-plt.xlabel("Annual Income (k$)")
-plt.ylabel("Spending Score (1-100)")
-plt.title("Customer Clusters")
-plt.legend()
-plt.show()
----------------------------------------------------------------------------------
-K-Means Clustering
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
+# Create a histogram of the 'Wind' values using ggplot2
+ggplot(data=aq) + geom_histogram(mapping=aes(Wind))
 
-data = pd.read_csv("/content/Mall_Customers.csv")
+# Calculate the skewness of the 'Wind' column
+# The moments library is excluded.
 
-X = data.iloc[:, [3, 4]].values  # Selecting Annual Income and Spending Score
+# Calculate the kurtosis of the 'Wind' column
+# The moments library is excluded.
 
-wcss = []
-for k in range(1, 11):
-  kmeans = KMeans(n_clusters=k, init="k-means++", random_state=42)
-  kmeans.fit(X)
-  wcss.append(kmeans.inertia_)
-plt.figure(figsize=(10, 5))
-plt.plot(range(1, 11), wcss, marker="o")
-plt.xlabel("Number of Clusters")
-plt.ylabel("WCSS")
-plt.title("Elbow Method")
-plt.show()
+# Create a boxplot of 'Wind' levels for each 'Month' using base R plotting
+qplot(Month, Wind, data=aq, geom="boxplot", color=Month)
 
-kmeans = KMeans(n_clusters=5, init="k-means++", random_state=42)
-y_kmeans = kmeans.fit_predict(X)
+# Display a statistical summary of the 'Temp' column
+summary(aq$Temp)
 
-plt.figure(figsize=(10, 5))
-for i in range(5):
-  plt.scatter(X[y_kmeans == i, 0], X[y_kmeans == i, 1], label=f"Cluster {i+1}")
-plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=100, c='yellow', label='Centroids')
-plt.xlabel("Annual Income (k$)")
-plt.ylabel("Spending Score (1-100)")
-plt.title("Customer Clusters")
-plt.legend()
-plt.show()
----------------------------------------------------------------------------------
-Principal Component Analysis (PCA)
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+# Create a boxplot of 'Temp' levels for each 'Month' using base R plotting
+qplot(Month, Temp, data=aq, geom="boxplot", color=Month)
 
-data = pd.read_csv("/content/wine.csv")  # Ensure the dataset is available
+# Display the frequency count of each 'Month'
+table(aq$Month)
 
-X = data.iloc[:, :-1].values  # Extract features
-y = data.iloc[:, -1].values  # Extract target variable
+# Display the frequency count of each 'Day'
+table(aq$Day)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Correlation analysis (only on numerical variables)
+columns <- c('Ozone.sqrt', 'Solar.R', 'Wind', 'Temp')
+# Identify rows with no missing values in the selected columns
+rows <- rowSums(is.na(aq[, columns])) == 0
+# Compute the correlation matrix for the selected numerical variables and round to 2 decimal places
+round(cor(aq[rows, columns]), 2)
+# The 'cor()' function calculates the Pearson correlation coefficient between pairs of numerical variables.
 
-sc = StandardScaler()
-X_train = sc.fit_transform(X_train)
-X_test = sc.transform(X_test)
+# Create scatter plots to visualize the relationship between pairs of variables
+# qplot() from ggplot2 is used here for simpler scatter plot creation
 
-pca = PCA(n_components=2)  # Reduce to 2 principal components
-X_train_pca = pca.fit_transform(X_train)
-X_test_pca = pca.transform(X_test)
+qplot(Solar.R, Wind, data=aq, geom="point", color=Month)
+# Scatter plot of Solar.R vs. Wind, with points colored by Month.
+# This plot helps visualize if there's a relationship between solar radiation and wind speed,
+# and if this relationship varies across different months.
 
-plt.scatter(X_train_pca[:, 0], X_train_pca[:, 1], c=y_train, cmap='viridis')
-plt.xlabel("Principal Component 1")
-plt.ylabel("Principal Component 2")
-plt.title("PCA Transformation of Wine Dataset")
-plt.show()
+qplot(Temp, Solar.R, data=aq, geom="point", color=Month)
+# Scatter plot of Temp vs. Solar.R, with points colored by Month.
+# This plot helps visualize the relationship between temperature and solar radiation,
+# and how it changes across months.
+
+qplot(Solar.R, Ozone.sqrt, data=aq, color=Month, geom="point")
+# Scatter plot of Solar.R vs. the square root of Ozone, colored by Month.
+# We use the transformed Ozone variable as it might have a more linear relationship
+# with other variables after transformation. This plot explores the connection
+# between solar radiation and ozone levels across different months.
+
+qplot(Temp, Wind, data=aq, color=Month, geom="point")
+# Scatter plot of Temp vs. Wind, colored by Month.
+# This plot visualizes the relationship between temperature and wind speed,
+# and its variation across different months.
+
+qplot(Wind, Ozone.sqrt, data=aq, color=Month, geom='point')
+# Scatter plot of Wind vs. the square root of Ozone, colored by Month.
+# This plot explores the relationship between wind speed and ozone levels,
+# considering potential monthly variations.
+
+qplot(Temp, Ozone.sqrt, data=aq, color=Month, geom='point')
+# Scatter plot of Temp vs. the square root of Ozone, colored by Month.
+# This plot visualizes the relationship between temperature and ozone levels,
+# and how it might differ across different months.
+----------------------------------------------------------
+# Load the dplyr and ggplot2 libraries
+library(dplyr) # For data manipulation
+library(ggplot2) # For creating more advanced and customizable plots
+
+# Load the built-in 'airquality' dataset into a tibble (dplyr's data frame) called 'aq'
+aq <- as_tibble(airquality)
+
+# Display the column names of the 'aq' tibble
+colnames(aq)
+
+# Display the first few rows of the 'aq' tibble
+head(aq)
+
+# Calculate the number of missing values (NA) in each column of 'aq'
+summarise_all(aq, ~sum(is.na(.)))
+
+# Convert the 'Day' column to a factor with ordered levels (1 to 31)
+aq <- aq %>%
+  mutate(Day = factor(Day, levels = 1:31, ordered = TRUE))
+
+# Convert the 'Month' column to a factor with ordered levels (5 to 9)
+# and assign month abbreviations (May to September) as labels
+aq <- aq %>%
+  mutate(Month = factor(Month, levels = 5:9, labels = month.abb[5:9], ordered = TRUE))
+
+# Display a statistical summary of the 'aq' tibble
+summary(aq)
+
+# Display a statistical summary of the 'Ozone' column
+summary(aq$Ozone)
+
+# Create a histogram of the 'Ozone' values using ggplot2
+ggplot(data = aq, aes(x = Ozone)) +
+  geom_histogram()
+# This line uses ggplot2 to create a histogram, visualizing the distribution of Ozone levels.
+
+# Create a new column 'Ozone.sqrt' by taking the square root of the 'Ozone' values
+aq <- aq %>%
+  mutate(Ozone.sqrt = sqrt(Ozone))
+# This transformation can sometimes help to normalize skewed data.
+
+# Create a histogram of the transformed 'Ozone.sqrt' values using ggplot2
+ggplot(data = aq, aes(x = Ozone.sqrt)) +
+  geom_histogram()
+
+# Create a boxplot of 'Ozone' levels for each 'Month' using ggplot2
+ggplot(data = aq, aes(x = Month, y = Ozone, color = Month)) +
+  geom_boxplot()
+# Boxplots show the distribution of a variable across different categories.
+
+# Display a statistical summary of the 'Solar.R' column
+summary(aq$Solar.R)
+
+# Create a histogram of the 'Solar.R' values using ggplot2
+ggplot(data = aq, aes(x = Solar.R)) +
+  geom_histogram()
+
+# Create a boxplot of 'Solar.R' levels for each 'Month' using ggplot2
+ggplot(data = aq, aes(x = Month, y = Solar.R, color = Month)) +
+  geom_boxplot()
+
+# Display a statistical summary of the 'Wind' column
+summary(aq$Wind)
+
+# Create a histogram of the 'Wind' values using ggplot2
+ggplot(data = aq, aes(x = Wind)) +
+  geom_histogram()
+
+# Create a boxplot of 'Wind' levels for each 'Month' using ggplot2
+ggplot(data = aq, aes(x = Month, y = Wind, color = Month)) +
+  geom_boxplot()
+
+# Display a statistical summary of the 'Temp' column
+summary(aq$Temp)
+
+# Create a boxplot of 'Temp' levels for each 'Month' using ggplot2
+ggplot(data = aq, aes(x = Month, y = Temp, color = Month)) +
+  geom_boxplot()
+
+# Display the frequency count of each 'Month' using dplyr
+aq %>%
+  count(Month)
+
+# Display the frequency count of each 'Day' using dplyr
+aq %>%
+  count(Day)
+
+# Correlation analysis (only on numerical variables) using dplyr and base R
+correlation_data <- aq %>%
+  select(Ozone.sqrt, Solar.R, Wind, Temp) %>%
+  filter(complete.cases(.)) # Remove rows with any NA values
+
+cor_matrix <- cor(correlation_data)
+print(round(cor_matrix, 2))
+# The 'cor()' function calculates the Pearson correlation coefficient.
+
+# Create scatter plots to visualize the relationship between pairs of variables using ggplot2
+
+ggplot(aq, aes(x = Solar.R, y = Wind, color = Month)) +
+  geom_point() +
+  labs(title = "Solar.R vs. Wind", x = "Solar Radiation", y = "Wind Speed")
+# Scatter plot of Solar.R vs. Wind, with points colored by Month.
+
+ggplot(aq, aes(x = Temp, y = Solar.R, color = Month)) +
+  geom_point() +
+  labs(title = "Temp vs. Solar.R", x = "Temperature", y = "Solar Radiation")
+# Scatter plot of Temp vs. Solar.R, with points colored by Month.
+
+ggplot(aq, aes(x = Solar.R, y = Ozone.sqrt, color = Month)) +
+  geom_point() +
+  labs(title = "Solar.R vs. sqrt(Ozone)", x = "Solar Radiation", y = "Square Root of Ozone")
+# Scatter plot of Solar.R vs. the square root of Ozone, colored by Month.
+
+ggplot(aq, aes(x = Temp, y = Wind, color = Month)) +
+  geom_point() +
+  labs(title = "Temp vs. Wind", x = "Temperature", y = "Wind Speed")
+# Scatter plot of Temp vs. Wind, colored by Month.
+
+ggplot(aq, aes(x = Wind, y = Ozone.sqrt, color = Month)) +
+  geom_point() +
+  labs(title = "Wind vs. sqrt(Ozone)", x = "Wind Speed", y = "Square Root of Ozone")
+# Scatter plot of Wind vs. the square root of Ozone, colored by Month.
+
+ggplot(aq, aes(x = Temp, y = Ozone.sqrt, color = Month)) +
+  geom_point() +
+  labs(title = "Temp vs. sqrt(Ozone)", x = "Temperature", y = "Square Root of Ozone")
+# Scatter plot of Temp vs. the square root of Ozone, colored by Month.
+-----------------------------------------------------
+# --- 1. Load Dataset Information ---
+help(airquality)
+
+# --- 2. Initial Data Inspection ---
+head(airquality)
+summary(airquality)
+
+# --- 3. Visualize Distributions ---
+boxplot(airquality, main = "Boxplot of Air Quality Variables")
+hist(airquality$Ozone, main = "Histogram of Ozone Levels", xlab = "Ozone (ppb)")
+hist(airquality$Solar.R, main = "Histogram of Solar Radiation", xlab = "Solar.R (langleys)")
+hist(airquality$Wind, main = "Histogram of Wind Speed", xlab = "Wind (mph)")
+hist(airquality$Temp, main = "Histogram of Temperature", xlab = "Temperature (°F)")
+# Note: Histograms for Month and Day treat them as numerical.
+# For categorical representation, bar charts would be more suitable.
+barplot(table(airquality$Month), main = "Bar Chart of Months", ylab = "Frequency", xlab = "Month")
+barplot(table(airquality$Day), main = "Bar Chart of Days", ylab = "Frequency", xlab = "Day")
+
+# --- 4. Explore Missing Values ---
+which(is.na(airquality))
+sum(is.na(airquality))
+colSums(is.na(airquality)) # More informative: NAs per column
+
+# --- 5. Handling Missing Values (Example for Ozone) ---
+Coll_Ozone <- subset(airquality, select = c("Ozone"))
+print("Ozone Column with NAs:")
+print(head(Coll_Ozone))
+which_na_ozone <- which(is.na(Coll_Ozone))
+print(paste("Indices of NA in Ozone:", paste(which_na_ozone, collapse = ", ")))
+
+Coll_Ozone_Imputed <- Coll_Ozone
+Coll_Ozone_Imputed[is.na(Coll_Ozone_Imputed)] <- 0
+print("Ozone Column with NAs replaced by 0:")
+print(head(Coll_Ozone_Imputed))
+summary(Coll_Ozone_Imputed) # Check the summary after imputation
+
+# --- 6. Further Exploration (Optional) ---
+# You could add more visualizations or analyses here, such as:
+# - Scatter plots to explore relationships between variables
+# - Examining trends over time (if order matters)
+# - More sophisticated missing value imputation techniques
+----------------------------------------------
+# Create the first data frame
+data <- data.frame(col1 = 1:10, col2 = 23:32)
+print(data)
+
+# Define the vectors for the second set of columns
+col3 <- 11:20
+col4 <- 34:43
+
+# Calculate and print the five-number summary for each variable
+print(fivenum(data$col1))
+print(fivenum(data$col2))
+print(fivenum(col3))
+print(fivenum(col4))
+
+# Optionally, add the new columns to the data frame:
+data$col3 <- col3
+data$col4 <- col4
+print(data)
