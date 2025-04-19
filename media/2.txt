@@ -1,457 +1,480 @@
-+-----+-----------+-------+-----+-----------+-------+
-| Pin | Name      | GPIO# | Pin | Name      | GPIO# |
-+-----+-----------+-------+-----+-----------+-------+
-|  1  | 3.3V Power|       |  2  | 5.0V Power|       |
-|  3  | GPIO. 8   |   8   |  4  | 5.0V Power|       |
-|  5  | GPIO. 9   |   9   |  6  | Ground    |       |
-|  7  | GPIO. 7   |   7   |  8  | GPIO. 15  |  15   |
-|  9  | Ground    |       | 10  | GPIO. 16  |  16   |
-| 11  | GPIO. 0   |   0   | 12  | GPIO. 1   |   1   |
-| 13  | GPIO. 2   |   2   | 14  | Ground    |       |
-| 15  | GPIO. 3   |   3   | 16  | GPIO. 4   |   4   |
-| 17  | 3.3V Power|       | 18  | GPIO. 5   |   5   |
-| 19  | GPIO. 12  |  12   | 20  | Ground    |       |
-| 21  | GPIO. 13  |  13   | 22  | GPIO. 6   |   6   |
-| 23  | GPIO. 14  |  14   | 24  | GPIO. 10  |  10   |
-| 25  | Ground    |       | 26  | GPIO. 11  |  11   |
-| 27  | ID_SD     |       | 28  | ID_SC     |       |
-| 29  | GPIO. 21  |  21   | 30  | Ground    |       |
-| 31  | GPIO. 22  |  22   | 32  | GPIO. 26  |  26   |
-| 33  | GPIO. 23  |  23   | 34  | Ground    |       |
-| 35  | GPIO. 24  |  24   | 36  | GPIO. 27  |  27   |
-| 37  | GPIO. 25  |  25   | 38  | GPIO. 28  |  28   |
-| 39  | Ground    |       | 40  | GPIO. 29  |  29   |
-+-----+-----------+-------+-----+-----------+-------+
-Done! Congratulations on your new bot. You will find it at t.me/sahil444bot. You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.
+-----------------------------------------------------------‐----
+-----------------------------------------------------------‐----
+Aim: Introduction to Business Analytics: Exploratory Data Analysis (EDA) on Employee Data
+Objective: To collect data from the "employees.csv" dataset and perform exploratory data analysis to gain initial insights, including handling missing values.
+-----------------------------------------------------------‐----
+-----------------------------------------------------------‐----
+# Step 1: Importing Libraries, Datasets, and Printing First 5 Entries
+import pandas as pd
+import numpy as np
+df = pd.read_csv("employees.csv")
+print("First 5 entries of the DataFrame:")
+print(df.head())
 
-Use this token to access the HTTP API:
-7866794055:AAEaBkOXMlRsIque2Njb0Fk_fPHoZiJWCHM
-Keep your token secure and store it safely, it can be used by anyone to control your bot.
+# Step 2: Showing Total Rows and Columns in the Dataset
+print("\nShape of the DataFrame (Rows, Columns):")
+print(df.shape)
 
-For a description of the Bot API, see this page: https://core.telegram.org/bots/api
+# Step 3: Showing Summary Statistics of Numerical Columns
+print("\nSummary statistics of numerical columns:")
+print(df.describe())
 
+# Step 4: Showing Information about the DataFrame
+print("\nInformation about the DataFrame (column names, non-null counts, data types, memory usage):")
+df.info()
 
-------------------------------------------------
-Telegram Bot 
-------------------------------------------------
+# Step 5: Showing the Number of Unique Entries in Each Column
+print("\nNumber of unique entries in each column:")
+print(df.nunique())
 
-Here's a guide to control an LED on a Raspberry Pi using a Telegram bot:
- * Create a Telegram Bot: Use BotFather in Telegram to create a new bot and obtain the API token.
- * Install Libraries: On your Raspberry Pi, install the necessary Python libraries: sudo apt-get install python3-pip and sudo pip3 install python-telegram-bot RPi.GPIO.
- * Connect the LED: Connect the LED to a GPIO pin on your Raspberry Pi (e.g., GPIO 26).
- * Write Python Code: Create a Python script (e.g., telegram_led.py) with the following structure:
-   import RPi.GPIO as GPIO
-import telegram
-from telegram.ext import Updater, CommandHandler
+# Step 6: Showing the Total Number of Null Values in Each Column
+print("\nTotal number of null values in each column:")
+print(df.isnull().sum())
 
-# Raspberry Pi GPIO setup
-led_pin = 26  # Replace with the actual GPIO pin you are using
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(led_pin, GPIO.OUT)
+# Step 7: Replacing Null Values in the 'Gender' Column
+df["Gender"].fillna("No Gender", inplace=True)
+print("\nTotal number of null values after filling 'Gender' NaNs:")
+print(df.isnull().sum())
 
-# Telegram Bot token
-bot_token = "YOUR_BOT_TOKEN"  # Replace with your actual bot token
+# Step 8: Removing Rows with Any Null Values and Displaying Updated Null Counts and Shape
+df_dropped = df.dropna(axis=0, how="any")
+print("\nTotal number of null values after dropping rows with NaNs:")
+print(df_dropped.isnull().sum())
+print("\nShape of the DataFrame after dropping rows with NaNs (Rows, Columns):")
+print(df_dropped.shape)
+-----------------------------------------------------------‐----
+-----------------------------------------------------------‐----
+Aim: Analyze data to identify trends and patterns that can be used for business decision-making.
+Dataset Description: In this practical, we use two datasets: "employees.csv" and "Iris.csv", which contain valuable data.
+-----------------------------------------------------------‐----
+-----------------------------------------------------------‐----
+Part 1: Analyzing "Iris.csv"
+# Step 1: Importing pandas, numpy libraries and importing dataset “Iris.csv”
+# Using filter() to get some specific columns from the dataset
+import numpy as np
+import pandas as pd
 
-# Function to turn the LED on
-def led_on(update, context):
-    GPIO.output(led_pin, GPIO.HIGH)
-    update.message.reply_text('LED is ON')
+df_iris = pd.read_csv("Iris.csv")
+print("First 5 entries of the Iris dataset with selected columns:")
+print(df_iris.filter(["Species", "SepalLengthCm", "SepalWidthCm"]).head())
+.
+Part 2: Analyzing "employees.csv"
+# Step 2: Importing “employees.csv” dataset
+# Using sort_values() function to arrange values in ascending and descending order
+df_employees = pd.read_csv("employees.csv")
+print("\nFirst 5 entries of the employees dataset:")
+print(df_employees.head())
 
-# Function to turn the LED off
-def led_off(update, context):
-    GPIO.output(led_pin, GPIO.LOW)
-    update.message.reply_text('LED is OFF')
+df_employees.sort_values(["Salary"], axis=0, ascending=[False], inplace=True)
+print("\nEmployees dataset after sorting by 'Salary' in descending order:")
+print(df_employees)
 
-def main():
-    # Create the Updater and pass it your bot's token.
-    updater = Updater(token=bot_token, use_context=True)
+Part 3: Creating a New DataFrame and Using groupby()
+# Creating a new DataFrame having 3 Columns “Name”, “Age”, “Address” and “Qualification”
+# Using groupby() function to group data according to categories
+data1 = {
+    "Name": ["Jai", "Anuj", "Jai", "Princi", "Gaurav", "Anuj", "Princi", "Abhi"],
+    "Age": [27, 24, 22, 32, 33, 36, 27, 32],
+    "Address": ["Nagpur", "Kanpur", "Allahabad", "Kannuaj", "Jaunpur", "Kanpur", "Allahabad", "Aligarh"],
+    "Qualification": ["Msc", "MA", "MCA", "Phd", "B.Tech", "B.com", "Msc", "MA"]
+}
+df_grouped = pd.DataFrame(data1)
+print("\nOriginal DataFrame:")
+print(df_grouped)
 
-    # Get the dispatcher to register handlers
-    dp = updater.dispatcher
+print("\nAfter Grouping by 'Name' and showing the first entry in each group:")
+gk = df_grouped.groupby("Name")
+print(gk.first())
 
-    # Add command handlers
-    dp.add_handler(CommandHandler("on", led_on))
-    dp.add_handler(CommandHandler("off", led_off))
+-----------------------------------------------------------‐----
+Aim: Finding Relationships Among Variables
+-----------------------------------------------------------‐----
+Part A: Correlation Analysis
+Objective: To use the "data.csv" dataset to determine the strength and direction of linear relationships between pairs of variables.
+Dataset Description: The "data.csv" dataset contains four columns: Duration, Pulse, Maxpulse, and (presumably a typo, should likely be another variable) Duration.
 
-    # Start the Bot
-    updater.start_polling()
+# Step 1: Using corr() function “Correlation” to show the relationship between multiple variables
+import pandas as pd
 
-    # Run the bot until you press Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT.  This should be used most of the time, since
-    # start_polling() is non-blocking and will stop the bot gracefully.
-    updater.idle()
+# Load the dataset
+d = pd.read_csv("data.csv")
 
-if __name__ == '__main__':
-    main()
+# Calculate the correlation matrix
+correlation_matrix = d.corr()
 
- * Run the Script: Execute the Python script on your Raspberry Pi: python3 telegram_led.py.
- * Control via Telegram: Send /on to your Telegram bot to turn the LED on, and /off to turn it off.
+# Print the correlation matrix
+print("Correlation matrix of the dataset:\n", correlation_matrix)
 
--------------------------------------------
-4digits
--------------------------------------------
+Part B: Regression Analysis
+Objective: To apply linear regression to identify the relationship between an independent variable (from "data2.csv") and a dependent variable.
+Dataset Description: The "data2.csv" dataset contains at least two columns, where the first column is treated as the independent variable (x) and the second as the dependent variable (y).
 
-Okay, here's how to display the time on a 4-digit 7-segment display with your Raspberry Pi:
- * Hardware Setup: You'll need a 4-digit 7-segment display module, some resistors (220-330 ohms), and jumper wires. Connect the display to the Raspberry Pi's GPIO pins. The exact wiring will depend on your specific display module, so refer to its datasheet.
- * Install Libraries: Install the necessary Python libraries, such as RPi.GPIO and potentially a library specific to your 7-segment display driver chip (e.g., TM1637).
- * Python Code: Here's a basic Python code structure. You'll need to adapt it based on your display's wiring and any driver chip:
-   import RPi.GPIO as GPIO
-import time
-from datetime import datetime
-
-# Define GPIO pins for segments and digit selection
-segments = [26, 19, 13, 6, 5, 11, 9]  # Example segment pins
-digits = [7, 8, 25, 24]  # Example digit selection pins
-
-# Common Anode or Common Cathode? Adjust accordingly.
-common_cathode = True  # Or False if common anode
-
-# Digit patterns for 0-9
-numbers = [
-    0b0111111,  # 0
-    0b0000110,  # 1
-    0b1011011,  # 2
-    0b1001111,  # 3
-    0b1100110,  # 4
-    0b1101101,  # 5
-    0b1111101,  # 6
-    0b0000111,  # 7
-    0b1111111,  # 8
-    0b1101111   # 9
-]
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(segments, GPIO.OUT)
-GPIO.setup(digits, GPIO.OUT)
-
-def display_digit(digit, value):
-    GPIO.output(digits, [1]*4)
-    GPIO.output(digits[digit], 0 if common_cathode else 1) # Select the digit
-    pattern = numbers[value]
-    for i in range(7):
-        GPIO.output(segments[i], (pattern >> i) & 1)
-
-def display_time():
-    now = datetime.now()
-    hour = now.hour
-    minute = now.minute
-    display_number = [hour // 10, hour % 10, minute // 10, minute % 10]
-
-    while True:
-        for i in range(4):
-            display_digit(i, display_number[i])
-            time.sleep(0.001)  # Adjust for refresh rate
-
-try:
-    display_time()
-except KeyboardInterrupt:
-    GPIO.cleanup()
-
- * Run the Code: Execute the Python script. The 7-segment display should now show the current time.
-Remember to adjust the code, particularly the pin definitions and the numbers array, to match your specific hardware setup.
-
-
-------------------------------------------------
-starting Raspbian OS 
-------------------------------------------------
-Okay, let's get your Raspberry Pi up and running with the basics!
-Practical Steps:
- * Prepare the microSD Card:
-   * Download the Raspberry Pi OS (with Desktop) image from the official Raspberry Pi website.
-   * Download and install Raspberry Pi Imager on your computer.
-   * Insert your microSD card into your computer.
-   * Open Raspberry Pi Imager, choose the downloaded OS image, select your microSD card, and click "Write". This will install the operating system onto the card.
-   * Safely eject the microSD card from your computer.
- * Connect Peripherals to Raspberry Pi:
-   * Insert the microSD card into the microSD card slot on the Raspberry Pi.
-   * Connect one end of an HDMI cable to the HDMI port on the Raspberry Pi and the other end to your monitor.
-   * Plug in your USB mouse and USB keyboard into the USB ports on the Raspberry Pi.
-   * Connect one end of an Ethernet cable to the Ethernet port on the Raspberry Pi and the other end to your router or network switch.
- * Power On the Raspberry Pi:
-   * Connect the official Raspberry Pi power supply (5V, usually 2.5A or higher) to the micro USB or USB-C power port on the Raspberry Pi.
-   * The Raspberry Pi will automatically start booting. You should see the Raspberry Pi logo appear on your monitor, followed by the Raspbian OS boot process.
- * First Boot and Familiarization:
-   * Welcome Wizard: On the first boot, you'll likely be greeted by a Welcome Wizard. Follow the prompts to set your country, language, timezone, and Wi-Fi password (if you're not using Ethernet).
-   * Desktop Environment: You'll arrive at the Raspbian desktop environment. Take a moment to explore:
-     * Menu Button (Raspberry Pi icon): Located in the top-left corner, this gives you access to applications, settings, and system tools.
-     * Taskbar: Usually at the top, it shows open applications, system indicators (Wi-Fi, Bluetooth, volume, etc.), and the clock.
-     * File Manager (PCManFM): Click the folder icon on the taskbar to browse files and folders.
-     * Terminal: Click the black monitor icon on the taskbar to open a command-line interface. This is where you'll often interact with the system using text commands.
-     * Web Browser (Chromium): Click the globe icon to open the default web browser.
- * Checking Network Connection (Ethernet):
-   * If you connected via Ethernet, your Raspberry Pi should automatically obtain an IP address from your router.
-   * Using the GUI: Look at the network icon on the taskbar. If it shows connected status (usually two connected monitors or a wired icon), you have an Ethernet connection.
-   * Using the Terminal: Open the Terminal and type:
-     ifconfig eth0
-
-     Look for the inet addr line. If there's an IP address listed (e.g., inet addr:192.168.1.xxx), your Ethernet connection is working.
-Short Code Examples (to try in the Terminal):
- * Check Raspberry Pi Model:
-   cat /proc/cpuinfo | grep "Model"
-
- * Check Raspbian Version:
-   cat /etc/os-release
-
- * List connected USB devices:
-   lsusb
-
- * Check network interface status:
-   ip a
-
-   (Look for the eth0 interface for Ethernet)
- * Ping a website to test internet connection:
-   ping google.com -c 3
-
-   (Press Ctrl+C to stop)
-Key Takeaways:
- * Raspberry Pi OS is a Linux-based operating system.
- * The desktop environment provides a graphical way to interact with the Pi.
- * The Terminal is a powerful tool for executing commands.
- * Ethernet provides a wired network connection.
-You've now successfully started your Raspberry Pi, familiarized yourself with its basic components and interface, and connected it to essential peripherals and your network. You're ready to start exploring further!
-
-------------------------------------------------
-oscillations
-------------------------------------------------
-
-Building a full-fledged oscilloscope with a Raspberry Pi is challenging due to its limited analog input capabilities and high-speed data acquisition. However, you can create a basic, low-frequency oscilloscope for educational purposes. Here's a simplified approach:
-Limitations:
- * Low Bandwidth: The sampling rate will be limited, making it suitable only for low-frequency signals (audio range at best).
- * Limited Voltage Range: The Raspberry Pi's GPIO pins are sensitive to voltage. You'll need a voltage divider to safely measure higher voltages.
- * No Analog-to-Digital Converter (ADC): The Raspberry Pi doesn't have built-in analog inputs. You'll need an external ADC.
-Steps (Simplified):
- * Hardware:
-   * Raspberry Pi (any model)
-   * External ADC: An ADC module compatible with the Raspberry Pi's SPI or I2C interface (e.g., MCP3008 - SPI, ADS1115 - I2C).
-   * Voltage Divider (if needed): Resistors to reduce the input voltage to the ADC's safe range (typically 0-3.3V or 0-5V).
-   * Jumper wires
-   * Breadboard (optional, but recommended)
-   * Display (HDMI monitor or a smaller LCD)
- * Wiring (Example with MCP3008 - SPI):
-   * Connect the MCP3008 to the Raspberry Pi's SPI pins:
-     * MCP3008 VDD/VREF to Raspberry Pi 3.3V
-     * MCP3008 VSS/GND to Raspberry Pi GND
-     * MCP3008 CLK to Raspberry Pi SCLK (GPIO 11)
-     * MCP3008 DOUT to Raspberry Pi MISO (GPIO 9)
-     * MCP3008 DIN to Raspberry Pi MOSI (GPIO 10)
-     * MCP3008 CS/SHDN to a GPIO pin (e.g., GPIO 8)
-     * MCP3008 Analog Input (CH0) to your signal source (through a voltage divider if necessary).
- * Install Libraries:
-   sudo apt update
-sudo apt install python3-pip
-pip3 install spidev matplotlib
-
- * Python Code (Basic Example):
-   import spidev
-import time
+# Step 1: Importing all required libraries for Linear Regression
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Step 2: Importing dataset file “data2.csv” using read_csv method
+# Using iloc() function extracting rows based on integer-location indexing.
+d = pd.read_csv("data2.csv")
+x = d.iloc[:, 0].values.reshape(-1, 1)
+y = d.iloc[:, 1].values.reshape(-1, 1)
+
+# Step 3: Implementing Linear Regression
+# Initialize the Linear Regression model
+lr = LinearRegression()
+
+# Train the model using the fit() function
+lr.fit(x, y)
+
+# Predict the dependent variable (y) based on the independent variable (x)
+y_predicted = lr.predict(x)
+
+# Visualize the data points and the regression line
+plt.scatter(x, y, label="Original Data")
+plt.plot(x, y_predicted, color="red", label="Linear Regression Line")
+plt.xlabel("Independent Variable (Column 0)")
+plt.ylabel("Dependent Variable (Column 1)")
+plt.title("Linear Regression")
+plt.legend()
+plt.show()
+
+-----------------------------------------------------------‐----
+Aim: Probability and Probability Distributions
+-----------------------------------------------------------‐----
+Part A: Simulating a Probability Experiment (Rolling Dice)
+Objective: To simulate the rolling of two dice using programming and visualize the probabilities of different outcomes.
+
+# Step 1: Define a function to simulate rolling two dice n times
+import numpy as np
+import matplotlib.pyplot as plt
+
+def roll_two_dice(n):
+    """Simulates rolling two dice n times and returns a list of the sums."""
+    rolls = []
+    for _ in range(n):
+        # Generate a random integer between 1 and 6 for each die and sum them
+        two_dice_sum = np.random.randint(1, 7) + np.random.randint(1, 7)
+        rolls.append(two_dice_sum)
+    return rolls
+
+# Step 2: Simulate a large number of dice rolls
+num_rolls = 99000
+dice_outcomes = roll_two_dice(num_rolls)
+
+# Step 3: Create bins for the histogram
+# We want bins centered around the possible sums (2 to 12)
+bins = np.arange(1.5, 13.5, 1)
+
+# Step 4: Plot the histogram of the sums
+plt.hist(dice_outcomes, bins=bins, color="green", rwidth=0.8)
+plt.grid(True, axis='y', linestyle='--')
+plt.title("Sum of Two Dice Rolls")
+plt.xlabel("Sum of Two Dice")
+plt.ylabel("Frequency of Rolling Number")
+plt.xticks(range(2, 13))  # Set x-axis ticks to the possible sums
+plt.xlim(1.5, 12.5)      # Set x-axis limits to align with bins
+plt.show()
+
+Part B: Generating Random Numbers from Various Probability Distributions
+Objective: To generate random numbers from normal, uniform, and exponential probability distributions and visualize their distributions.
+
+a) Normal Distribution:
+# a) Normal Distribution
+import numpy as np
+import matplotlib.pyplot as plt
+
+mean = 100
+sd = 15  # Corrected standard deviation value for better visualization
+size = 100000
+values = np.random.normal(mean, sd, size)
+plt.hist(values, bins=100, density=True, alpha=0.6, color='blue') # Added density and alpha for better visualization
+plt.axvline(values.mean(), color="k", linestyle="dashed", linewidth=2, label=f'Mean: {values.mean():.2f}')
+plt.title("Normal Distribution")
+plt.xlabel("Values")
+plt.ylabel("Probability Density")
+plt.legend()
+plt.show()
+
+b) Uniform Distribution:
+# b) Uniform Distribution
+import numpy as np
+import matplotlib.pyplot as plt
+
+low = -5
+high = 5
+size = 5000
+uniform_values = np.random.uniform(low, high, size)
+plt.hist(uniform_values, bins=50, density=True, alpha=0.6, color='orange') # Added alpha and color
+plt.title("Uniform Distribution")
+plt.xlabel("Values")
+plt.ylabel("Probability Density")
+plt.show()
+
+c) Exponential Distribution:
+# c) Exponential Distribution
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(10)
+size = 10000
+scale = 1.0  # The inverse of the rate (lambda)
+exponential_sample = np.random.exponential(scale, size)
+bins = np.arange(0, 10, 0.2) # Adjusted bin width for better visualization
+plt.hist(exponential_sample, bins=bins, edgecolor="blue", alpha=0.7, density=True, color='lightblue') # Added density and alpha
+plt.title("Exponential Distribution")
+plt.xlabel("Values")
+plt.ylabel("Probability Density")
+plt.show()
+-----------------------------------------------------------‐----
+Aim: Decision Making under Uncertainty
+-----------------------------------------------------------‐----
+Part A: Develop a Decision Tree Model
+Objective: To develop a decision tree model using the "Titanic.csv" dataset to predict a binary outcome (survival) based on various features. While this isn't a traditional decision tree for decision-making under uncertainty with explicit probabilities at each branch, it uses a decision tree classifier for prediction, which implicitly learns decision boundaries based on the data.
+Dataset Description: The "Titanic.csv" dataset contains information about passengers on the Titanic, including features like age, gender, class, and survival status.
+
+# Step 1: Importing libraries and reading the CSV file "Titanic.csv"
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the dataset
+df = pd.read_csv("Titanic.csv")
+print("First 5 rows of the Titanic dataset:")
+print(df.head())
+
+# Step 2: Handling missing values
+# Filling missing 'age' with the median
+df['age'].fillna(df['age'].median(), inplace=True)
+print("\nNull values in 'age' after filling:", df['age'].isnull().sum())
+
+# Filling missing 'embarked' with the mode
+df['embarked'].fillna(df['embarked'].mode()[0], inplace=True)
+print("Null values in 'embarked' after filling:", df['embarked'].isnull().sum())
+
+# Step 3: Converting categorical features into numerical using one-hot encoding
+df = pd.get_dummies(df, columns=['sex', 'embarked', 'class', 'who'], drop_first=True)
+print("\nDataFrame after one-hot encoding:")
+print(df.head())
+
+# Step 4: Splitting the dataset into training and testing subsets
+X = df.drop('survived', axis=1)
+y = df['survived']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print("\nShape of training features:", X_train.shape)
+print("Shape of testing features:", X_test.shape)
+print("Shape of training target:", y_train.shape)
+print("Shape of testing target:", y_test.shape)
+
+# Step 5: Importing and training the Decision Tree Classifier
+model = DecisionTreeClassifier(random_state=42) # Added random_state for reproducibility
+model.fit(X_train, y_train)
+print("\nDecisionTreeClassifier trained.")
+
+# Step 6: Predicting on the test set and calculating accuracy
+y_predicted = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_predicted)
+print(f"\nAccuracy of the Decision Tree Classifier: {accuracy:.4f}")
+
+Part B: Apply the Concept of Expected Value
+Objective: To apply the concept of expected value to evaluate different decision alternatives and select the optimal one.
+Source Code and Steps:
+# Aim: b) Apply the concept of expected value to evaluate different decision alternatives and select the optimal one
+
+def calculate_expected_value(probabilities, payoffs):
+    """Calculates the expected value of a decision alternative."""
+    expected_value = 0
+    for prob, payoff in zip(probabilities, payoffs):
+        expected_value += prob * payoff
+    return expected_value
+
+def select_optimal_decision(decision_alternatives, expected_values):
+    """Selects the decision alternative with the highest expected value."""
+    optimal_decision = decision_alternatives[0]
+    max_expected_value = expected_values[0]
+    for decision, expected_value in zip(decision_alternatives, expected_values):
+        if expected_value > max_expected_value:
+            optimal_decision = decision
+            max_expected_value = expected_value
+    return optimal_decision
+
+# Define probabilities and payoffs for different decision alternatives
+probabilities = [0.3, 0.5, 0.2]
+payoffs = [[1000], [2000], [3000]]  # Payoffs for each alternative are in lists
+decision_alternatives = ['A', 'B', 'C']
+
+# Calculate the expected value for each decision alternative
+expected_values = [calculate_expected_value(probabilities, payoff) for payoff in payoffs]
+
+# Select the optimal decision
+optimal_decision = select_optimal_decision(decision_alternatives, expected_values)
+
+# Print the results
+print("Probabilities:", probabilities)
+print("Payoffs for each alternative:", payoffs)
+print("Expected Values:", expected_values)
+print("Optimal Decision:", optimal_decision)
+-----------------------------------------------------------‐----
+-----------------------------------------------------------‐----
+Aim: Sampling and Sampling Distributions
+-----------------------------------------------------------‐----
+-----------------------------------------------------------‐----
+Part A: Conduct a Survey and Collect Data from a Sample Population
+Objective: To demonstrate various sampling techniques using Python code. Note that actually conducting a real-life survey and collecting data is beyond the scope of this code snippet, but the code illustrates how different sampling methods can be implemented on a given population or dataset.
+
+a) Simple Random Sampling:
+# a) Random Sampling
+import random as rd
+
+# Define the population
+population = list(range(1, 100))
+sample_size = 10
+
+# Perform simple random sampling
+sample = rd.sample(population, sample_size)
+print("Simple random sampling of 10 numbers are:", sample)
+
+b) Systematic Sampling:
+# b) Systematic Sampling
 import numpy as np
 
-# SPI setup
-spi = spidev.SpiDev()
-spi.open(0, 0)  # bus 0, device 0
-spi.max_speed_hz = 1000000
+# Define the population
+population = np.arange(1, 100)
+sample_size = 10
 
-# MCP3008 channel
-channel = 0
+# Calculate the sampling interval
+sampling_interval = len(population) // sample_size
 
-# CS pin
-cs_pin = 8
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(cs_pin, GPIO.OUT)
+# Choose a random starting point
+start_point = np.random.randint(0, sampling_interval)
 
-def read_adc(channel):
-    GPIO.output(cs_pin, GPIO.LOW)
-    adc = spi.xfer2([1, (8 + channel) << 4, 0])
-    data = ((adc[1] & 3) << 8) + adc[2]
-    GPIO.output(cs_pin, GPIO.HIGH)
-    return data
+# Select the systematic sample
+sample = population[start_point::sampling_interval]
+print("Systematic or interval sampling of 10 numbers are:", sample)
 
-def get_voltage(data, vref=3.3):
-    return (data / 1023.0) * vref
+c) Stratified Sampling:
+# c) Stratified Sampling:
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
-# Plotting setup
-plt.ion()
-fig, ax = plt.subplots()
-line, = ax.plot([], [])
-ax.set_xlim(0, 100)
-ax.set_ylim(0, 3.3)
-ax.set_xlabel("Sample")
-ax.set_ylabel("Voltage (V)")
+# Step 1: Importing libraries and reading the CSV file "Titanic.csv"
+df = pd.read_csv("Titanic.csv")
 
-try:
-    while True:
-        raw_value = read_adc(channel)
-        voltage = get_voltage(raw_value)
-        print(f"Raw: {raw_value}, Voltage: {voltage:.2f}V")
+# Step 2: Splitting the dataset into training and testing sets using stratified sampling
+stratify_by = 'sex'
+train_df, test_df = train_test_split(df, test_size=0.3, stratify=df[stratify_by], random_state=42)
 
-        # Update plot
-        y_data = list(line.get_ydata())
-        y_data.append(voltage)
-        if len(y_data) > 100:
-            y_data = y_data[-100:]
-        line.set_ydata(y_data)
-        line.set_xdata(np.arange(len(y_data)))
-        ax.relim()
-        ax.autoscale_view()
-        fig.canvas.draw()
-        fig.canvas.flush_events()
+# Print the value counts of the stratification variable in both sets
+print("Train dataset:\n", train_df[stratify_by].value_counts())
+print("\nTest dataset:\n", test_df[stratify_by].value_counts())
 
-        time.sleep(0.01)  # Adjust sampling rate
+d) Cluster Sampling:
+# d) Cluster Sampling
+import random as rd
 
-except KeyboardInterrupt:
-    spi.close()
-    GPIO.cleanup()
-    plt.close()
+# Define the population data
+ppl_data = [10, 15, 20, 26, 29, 33, 35, 37, 41, 42, 46, 48, 50, 52, 58, 61, 64, 68, 72]
+cluster_size = 5
 
- * Run the Code:
-   python3 your_oscilloscope_script.py
+# Choose a random starting point within the first cluster size
+start_point = rd.randint(0, cluster_size - 1)
 
-Explanation:
- * SPI Communication: The code initializes the SPI interface and defines a function read_adc to read data from the MCP3008.
- * Voltage Conversion: get_voltage converts the digital reading from the ADC to a voltage value.
- * Plotting: matplotlib is used to create a live plot of the incoming voltage data.
- * Sampling Loop: The while True loop continuously reads data from the ADC, converts it to voltage, and updates the plot.
- * Sampling Rate: time.sleep(0.01) controls the sampling interval. Decrease this value for a higher sampling rate (but the Pi's processing power will limit how fast you can go).
-Further Improvements (More Complex):
- * Triggering: Implement a trigger mechanism to start data acquisition when the signal crosses a certain threshold.
- * Timebase Control: Allow the user to adjust the time scale of the plot.
- * Voltage Scaling: Enable the user to adjust the voltage scale of the plot.
- * GUI: Use a graphical user interface library (like Tkinter or PyQt) for a more user-friendly interface.
-This basic setup provides a starting point. Building a truly useful oscilloscope requires significant hardware and software development beyond the Raspberry Pi's inherent capabilities for high-speed analog signal acquisition.
+# Select clusters based on the starting point and cluster size
+sample_data = []
+for i in range(start_point, len(ppl_data), cluster_size):
+    sample_data.append(ppl_data[i:i + cluster_size])
 
-------------------------------------------------
-led pattern 
-------------------------------------------------
-Okay, let's get those LEDs blinking on your Raspberry Pi 3 Model B! Here's a step-by-step guide focusing on the practical aspects and providing Python code snippets.
-Prerequisites:
- * Raspberry Pi 3 Model B
- * HDMI cable and monitor
- * USB mouse and keyboard
- * Power supply for the Raspberry Pi
- * Ethernet cable (optional, for internet access)
- * 40-pin GPIO ribbon cable
- * Full-size breadboard
- * Jumper wires (male-to-male)
- * 5 LEDs (various colors)
- * 5 resistors (220Ω are generally safe for standard LEDs with a 3.3V supply)
-Practical Steps:
- * Connect the Hardware:
-   * Connect the HDMI cable to your Raspberry Pi and monitor.
-   * Plug in the USB mouse and keyboard.
-   * Connect the power supply to the Raspberry Pi and turn it on.
-   * (Optional) Connect the Ethernet cable for internet access.
- * Connect the GPIO Ribbon Cable:
-   * Carefully connect one end of the 40-pin GPIO ribbon cable to the GPIO header on your Raspberry Pi. Ensure it's aligned correctly.
-   * Connect the other end of the ribbon cable to your breadboard, making sure all the pins are properly inserted.
- * Connect the LEDs and Resistors on the Breadboard:
-   * Identify the longer leg (anode, positive) and shorter leg (cathode, negative) of each LED.
-   * For each LED:
-     * Insert the longer leg into one row of the breadboard.
-     * Connect one end of a resistor (220Ω) to the same row as the longer leg of the LED.
-     * Connect the other end of the resistor to a different row on the breadboard.
-     * Insert the shorter leg (cathode) of the LED into another row on the breadboard.
- * Connect Jumper Wires to the Raspberry Pi GPIO Pins:
-   * Decide which GPIO pins on the Raspberry Pi you want to control your LEDs with. Refer to the Raspberry Pi 3 Model B pinout diagram (you can easily find this online). Let's say we use GPIO pins 17, 18, 27, 22, and 23.
-   * For each LED:
-     * Connect one end of a jumper wire to the row on the breadboard that is connected to the resistor.
-     * Connect the other end of this jumper wire to one of the chosen GPIO pins on the breadboard (which is connected to the ribbon cable and thus the Raspberry Pi).
-   * Connect a jumper wire from the row on the breadboard connected to the shorter leg (cathode) of each LED to a common ground rail on the breadboard.
-   * Connect another jumper wire from a ground pin on the Raspberry Pi GPIO header (e.g., a pin labeled "GND") to the ground rail on your breadboard. This completes the circuit.
-Software Setup and Code (Python):
- * Open a Terminal: Once your Raspberry Pi boots up, open a terminal window (usually found in the application menu).
- * Install the RPi.GPIO Library (if not already installed):
-   sudo apt update
-sudo apt install python3-rpi.gpio
+# Print the starting point and the selected clusters
+print("Starting Point:", start_point)
+print("Sampled Clusters:", sample_data)
 
- * Create a Python File: Use a text editor (like nano) to create a new Python file (e.g., led_patterns.py):
-   nano led_patterns.py
+# Aim: b) Use the Central Limit Theorem to analyze the sampling distribution of a sample mean and estimate population parameters.
+import numpy as np
+import matplotlib.pyplot as plt
 
- * Write the Python Code: Paste the following code into the editor:
-   import RPi.GPIO as GPIO
-import time
+# Define different sample sizes
+num_samples = [1, 10, 50, 100]
+sample_means = []
 
-# Define the GPIO pins connected to the LEDs
-led_pins = [17, 18, 27, 22, 23]
+# Iterate through different sample sizes
+for n in num_samples:
+    np.random.seed(1)  # For reproducibility
+    means_for_n = [np.mean(np.random.randint(-40, 40, n)) for _ in range(1000)]
+    sample_means.append(means_for_n)
 
-# Set the GPIO mode to BCM numbering (refer to the Broadcom chip)
-GPIO.setmode(GPIO.BCM)
+# Create a 2x2 subplot for the histograms
+fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+axes = axes.flatten()  # Flatten the 2D array of axes for easy indexing
 
-# Setup the GPIO pins as output
-GPIO.setup(led_pins, GPIO.OUT)
+# Plot the distribution of sample means for each sample size
+for i, means in enumerate(sample_means):
+    axes[i].hist(means, bins=10, density=True, alpha=0.7, color='skyblue')
+    axes[i].set_title(f'Sample Size = {num_samples[i]}')
+    axes[i].set_xlabel('Sample Mean')
+    axes[i].set_ylabel('Probability Density')
 
-def all_on():
-    print("All LEDs ON")
-    GPIO.output(led_pins, GPIO.HIGH)
-    time.sleep(1)
-    GPIO.output(led_pins, GPIO.LOW)
-    time.sleep(1)
+plt.tight_layout()
+plt.show()
 
-def blink_each_one():
-    print("Blinking each LED individually")
-    for pin in led_pins:
-        GPIO.output(pin, GPIO.HIGH)
-        time.sleep(0.2)
-        GPIO.output(pin, GPIO.LOW)
-        time.sleep(0.2)
-    time.sleep(1)
+-----------------------------------------------------------‐----
+Aim: Confidence Interval Estimation
+-----------------------------------------------------------‐----
+Part A: Calculate Confidence Intervals for Population Means or Proportions
+Objective: To calculate a confidence interval for a population proportion using sample data and interpret the result.
+Source Code and Steps:
+# a) Calculate confidence intervals for population proportions
+import statsmodels.api as sm
+from statsmodels.stats.proportion import proportion_confint
 
-def sequential_on():
-    print("Sequential ON")
-    for pin in led_pins:
-        GPIO.output(pin, GPIO.HIGH)
-        time.sleep(0.3)
-    time.sleep(1)
-    GPIO.output(led_pins, GPIO.LOW)
-    time.sleep(1)
+# Given data:
+# Number of successes (e.g., customers who made a purchase)
+n_successes = 310
+# Total number of observations (e.g., total customers surveyed)
+n_observations = 1126
+# Confidence level (1 - alpha) = 0.99, so alpha = 1 - 0.99 = 0.01
 
-def alternate_blink():
-    print("Alternating Blink")
-    group1 = led_pins[::2]  # Even indexed LEDs
-    group2 = led_pins[1::2] # Odd indexed LEDs
+# Calculate the 99% confidence interval for the proportion
+confidence_interval = proportion_confint(n_successes, n_observations, alpha=0.01, method='wilson')
 
-    GPIO.output(group1, GPIO.HIGH)
-    time.sleep(0.5)
-    GPIO.output(group1, GPIO.LOW)
-    GPIO.output(group2, GPIO.HIGH)
-    time.sleep(0.5)
-    GPIO.output(group2, GPIO.LOW)
-    time.sleep(1)
+# Print the confidence interval
+print(f"99% Confidence Interval for the Population Proportion: {confidence_interval}")
+.
+Part B: Apply Bootstrapping Techniques to Estimate Confidence Intervals
+Objective: To use bootstrapping to estimate the confidence interval for the mean of a population based on a sample.
+Source Code and Steps:
+# b) Apply bootstrapping techniques to estimate confidence intervals for non-parametric statistics
+import numpy as np
+import random
 
-try:
-    while True:
-        all_on()
-        blink_each_one()
-        sequential_on()
-        alternate_blink()
+# Generate a sample from a population (in this case, a normal distribution)
+np.random.seed(42)  # for reproducibility
+population_sample = np.random.normal(loc=300.0, scale=20.0, size=1000)
+print("Mean of the original sample:", np.mean(population_sample))
 
-except KeyboardInterrupt:
-    print("Exiting...")
-finally:
-    GPIO.cleanup() # Clean up GPIO settings
+# Number of bootstrap resamples
+n_bootstraps = 2000
+# Size of each bootstrap resample (can be the same as the original sample size)
+bootstrap_sample_size = len(population_sample)
+bootstrap_means = []
 
- * Save and Run the Code:
-   * Press Ctrl+X, then Y (yes), then Enter to save the file.
-   * Run the script from the terminal:
-     python3 led_patterns.py
+# Perform bootstrapping
+for _ in range(n_bootstraps):
+    # Create a bootstrap resample by sampling with replacement from the original sample
+    bootstrap_resample = random.choices(population_sample.tolist(), k=bootstrap_sample_size)
+    # Calculate the mean of the bootstrap resample
+    bootstrap_mean = np.mean(bootstrap_resample)
+    bootstrap_means.append(bootstrap_mean)
 
-Explanation of the Code:
- * import RPi.GPIO as GPIO: Imports the necessary library to control the GPIO pins.
- * import time: Imports the time module for introducing delays.
- * led_pins = [17, 18, 27, 22, 23]: Defines a list containing the GPIO pin numbers you connected your LEDs to. Make sure these match the actual pins you used!
- * GPIO.setmode(GPIO.BCM): Sets the numbering scheme for the GPIO pins to BCM (Broadcom) numbering. This is generally recommended.
- * GPIO.setup(led_pins, GPIO.OUT): Configures the specified GPIO pins as output pins, allowing you to send signals to the LEDs.
- * Functions (all_on, blink_each_one, sequential_on, alternate_blink): These functions define different LED patterns by turning the LEDs on and off with specific timings.
- * GPIO.output(pin, GPIO.HIGH): Sets the voltage of the specified GPIO pin to HIGH (typically 3.3V), which will turn the connected LED ON (if the circuit is correct).
- * GPIO.output(pin, GPIO.LOW): Sets the voltage of the specified GPIO pin to LOW (0V), turning the LED OFF.
- * time.sleep(seconds): Pauses the execution of the program for the specified number of seconds.
- * try...except KeyboardInterrupt...finally: This block allows you to stop the program gracefully by pressing Ctrl+C.
- * GPIO.cleanup(): This important line in the finally block resets all the GPIO pins to their default state when the program exits, preventing potential issues with other scripts.
-Running the Code:
-When you run the Python script, you should see the LEDs on your breadboard light up in the defined patterns: all on/off, blinking individually, turning on sequentially, and blinking alternately.
-Important Considerations:
- * GPIO Pin Numbers: Double-check the GPIO pin numbers in your code (led_pins list) and ensure they match the physical connections you made on the breadboard.
- * Resistors: Using resistors is crucial to prevent excessive current from flowing through the LEDs, which could damage them or the Raspberry Pi.
- * Ground Connection: Make sure you have a solid ground connection between the Raspberry Pi and the breadboard.
- * Pinout Diagram: Always refer to the Raspberry Pi 3 Model B pinout diagram to correctly identify the GPIO and ground pins.
-This detailed guide should help you get your LED patterns working! Remember to be careful when working with electronics and always double-check your connections.
+# Calculate the confidence interval from the distribution of bootstrap means
+confidence_level = 0.95
+alpha = 1 - confidence_level
+lower_percentile = alpha / 2 * 100
+upper_percentile = (1 - alpha / 2) * 100
+
+lower_bound = np.percentile(bootstrap_means, lower_percentile)
+upper_bound = np.percentile(bootstrap_means, upper_percentile)
+
+print(f"\nNumber of Bootstrap Resamples: {n_bootstraps}")
+print(f"{confidence_level*100}% Bootstrap Confidence Interval for the Mean: ({lower_bound:.2f}, {upper_bound:.2f})")
