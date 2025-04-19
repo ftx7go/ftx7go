@@ -478,3 +478,59 @@ upper_bound = np.percentile(bootstrap_means, upper_percentile)
 
 print(f"\nNumber of Bootstrap Resamples: {n_bootstraps}")
 print(f"{confidence_level*100}% Bootstrap Confidence Interval for the Mean: ({lower_bound:.2f}, {upper_bound:.2f})")
+
+-----------------------------------------------------------‐----
+excel
+-----------------------------------------------------------‐----
+
+Okay, let's take a random, small table as an example and go through calculating descriptive statistics and creating visualizations in Excel.
+Example Table:
+Imagine we have sales data for a small online store for the past week. The table below shows the "Number of Items Sold" each day:
+| Day | Number of Items Sold |
+|---|---|
+| Monday | 15 |
+| Tuesday | 18 |
+| Wednesday | 22 |
+| Thursday | 18 |
+| Friday | 25 |
+| Saturday | 30 |
+| Sunday | 22 |
+Let's assume this data is in Excel, with "Number of Items Sold" in Column B, from Row 2 to Row 8 (B2:B8).
+Part A: Calculate Descriptive Statistics in Excel for "Number of Items Sold"
+Steps:
+ * Open Data in Excel: Enter the table above into an Excel sheet. "Number of Items Sold" will be in the range B2:B8.
+ * Calculate Mean:
+   * Select an empty cell (e.g., D2).
+   * Type the formula: =AVERAGE(B2:B8)
+   * Press Enter. The mean (21.43) will appear in D2.
+ * Calculate Median:
+   * Select another empty cell (e.g., D3).
+   * Type the formula: =MEDIAN(B2:B8)
+   * Press Enter. The median (22) will appear in D3.
+ * Calculate Mode:
+   * Select yet another empty cell (e.g., D4).
+   * Type the formula: =MODE.SNGL(B2:B8)
+   * Press Enter. The mode (18) will appear in D4 (as 18 appears twice, more than any other single number).
+ * Calculate Variance (Population):
+   * Select one more empty cell (e.g., D5).
+   * Type the formula: =VAR.P(B2:B8)
+   * Press Enter. The population variance (18.24) will appear in D5.
+Part B: Create Visualizations in Excel for "Number of Items Sold"
+1. Histogram:
+Steps:
+ * Select Data: Select the range of data values: B2:B8.
+ * Go to Insert Tab: Click on "Insert".
+ * Open Charts Menu: In the "Charts" group, click the "Histogram" icon.
+ * Select Histogram: Choose the first "Histogram" option.
+ * Excel will create a basic histogram. You might want to customize the bin widths:
+   * Right-click on the horizontal axis (representing the number of items sold).
+   * Select "Format Axis".
+   * In the "Axis Options", under "Bin Options", you can choose "Bin width" and set a value (e.g., 5) or choose "Number of bins" and specify how many bars you want.
+2. Box Plot (Box and Whisker):
+Steps:
+ * Select Data: Select the range B2:B8.
+ * Go to Insert Tab: Click "Insert".
+ * Open Statistic Chart Menu: In the "Charts" group, click the dropdown for "Insert Statistic Chart".
+ * Select Box and Whisker: Choose the "Box and Whisker" option.
+ * Excel will generate a box plot. This plot will visually represent the minimum, first quartile, median, third quartile, and maximum of the "Number of Items Sold". You can hover over different parts of the box plot to see these values.
+By following these steps with this example table, you can easily calculate basic descriptive statistics and create a histogram and box plot in Excel to understand the distribution of the "Number of Items Sold" over the week.
